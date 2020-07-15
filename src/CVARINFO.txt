@@ -1,0 +1,9 @@
+server bool inventory_replace_megasphere = true;
+server bool inventory_replace_blursphere = true;
+server bool inventory_replace_soulsphere = true;
+server bool inventory_replace_invulnsphere = true;
+server bool inventory_replace_berserk = true;
+server bool inventory_replace_radsuit = false;
+server bool inventory_replace_infrared = true;
+server bool inventory_replace_allmap = false;
+server bool inventory_replace_backpack = false;

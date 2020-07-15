@@ -1,0 +1,135 @@
+class SoulspherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "SOULINV";
+    }
+    
+    States
+    {
+        Spawn:
+            SOUL ABCDCB 6 Bright;
+            Loop;
+    }
+}
+
+class MegaspherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "MEGAINV";
+    }
+    
+    States
+    {
+        Spawn:
+            MEGA ABCD 6 Bright;
+            Loop;
+    }
+}
+
+class BlurspherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "BLURINV";
+    }
+    
+    States
+    {
+        Spawn:
+            PINS ABCD 6 Bright;
+            Loop;
+    }
+}
+
+class InvulnerabilitySpherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "INVUINV";
+    }
+    
+    States
+    {
+        Spawn:
+            PINV ABCD 6 Bright;
+            Loop;
+    }
+}
+
+class BerserkPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "BERSINV";
+    }
+    
+    States
+    {
+        Spawn:
+            PSTR A -1;
+            Stop;
+    }
+}
+
+class RadSuitPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "SUITINV";
+    }
+    
+    States
+    {
+        Spawn:
+            SUIT A -1 Bright;
+            Stop;
+    }
+}
+
+class AllmapPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "MAPINV";
+    }
+    
+    States
+    {
+        Spawn:
+            PMAP ABCDCB 6 Bright;
+            Loop;
+    }
+}
+
+class InfraredPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "GOGGINV";
+    }
+    
+    States
+    {
+        Spawn:
+            PVIS A 6 Bright;
+            PVIS B 6;
+            Loop;
+    }
+}
+
+class BackpackPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "BKPKINV";
+    }
+    
+    States
+    {
+        Spawn:
+            BPAK A -1;
+            Stop;
+    }
+}

@@ -1,0 +1,77 @@
+class SimpleInventoryItems : EventHandler
+{
+    Class<Actor> soulsphere;
+    Class<Actor> blursphere;
+    Class<Actor> megasphere;
+    Class<Actor> berserk;
+    Class<Actor> radsuit;
+    Class<Actor> backpack;
+    Class<Actor> allmap;
+    Class<Actor> infrared;
+    Class<Actor> invulnsphere;
+    
+    override void OnRegister()
+    {
+        soulsphere = "Soulsphere";
+        blursphere = "Blursphere";
+        megasphere = "Megasphere";
+        berserk = "Berserk";
+        radsuit = "Radsuit";
+        backpack = "Backpack";
+        allmap = "Allmap";
+        infrared = "Infrared";
+        invulnsphere = "InvulnerabilitySphere";
+    }
+    
+    override void CheckReplacement(ReplaceEvent e)
+    {
+        if (!e.replacement)
+            return;
+
+        if (e.Replacee is soulsphere) soulsphere = e.Replacement;
+        if (e.Replacee is blursphere) blursphere = e.Replacement;
+        if (e.Replacee is megasphere) megasphere = e.Replacement;
+        if (e.Replacee is invulnsphere) invulnsphere = e.Replacement;
+        if (e.Replacee is berserk) berserk = e.Replacement;
+        if (e.Replacee is radsuit) radsuit = e.Replacement;
+        if (e.Replacee is backpack) backpack = e.Replacement;
+        if (e.Replacee is allmap) allmap = e.Replacement;
+        if (e.Replacee is infrared) infrared = e.Replacement;
+    }
+    
+    //try to emulate an item as closely as possible - have it's pickup sound,
+    //it's floatbob, gravity, etc.
+    protected void ReplaceCompletely(Inventory source, class<Actor> replacement_class)
+    {
+        PowerupCommon replacement = PowerupCommon(Actor.Spawn(replacement_class,source.pos));
+        
+        if (!replacement)
+            return;
+        
+        replacement.bFLOATBOB = source.bFLOATBOB;
+        replacement.bNOGRAVITY = source.bNOGRAVITY;
+        replacement.ReplacementClass = source.GetClass();
+        replacement.UseSound = source.PickupSound;
+        //replacement.PickupMessage = source.PickupMessage;
+        
+        source.Destroy();
+    }
+    
+    override void WorldThingSpawned(WorldEvent e)
+    {
+        Inventory a = Inventory(e.Thing);
+        
+        if (!a)
+            return;
+        
+        if (a is soulsphere && inventory_replace_soulsphere) ReplaceCompletely(a,"SoulspherePickup");
+        if (a is megasphere && inventory_replace_megasphere) ReplaceCompletely(a,"MegaspherePickup");
+        if (a is blursphere && inventory_replace_blursphere) ReplaceCompletely(a,"BlurspherePickup");
+        if (a is invulnsphere && inventory_replace_invulnsphere) ReplaceCompletely(a,"InvulnerabilitySpherePickup");
+        if (a is berserk && inventory_replace_berserk) ReplaceCompletely(a,"BerserkPickup");
+        if (a is radsuit && inventory_replace_radsuit) ReplaceCompletely(a,"RadsuitPickup");
+        if (a is backpack && inventory_replace_backpack) ReplaceCompletely(a,"BackpackPickup");
+        if (a is allmap && inventory_replace_allmap) ReplaceCompletely(a,"AllmapPickup");
+        if (a is infrared && inventory_replace_infrared) ReplaceCompletely(a,"InfraredPickup");
+    }
+}

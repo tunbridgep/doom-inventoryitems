@@ -1,0 +1,29 @@
+class PowerupCommon : CustomInventory
+{
+    class<Inventory> ReplacementClass;
+
+    Default
+    {
+        +COUNTITEM;
+        +INVENTORY.ALWAYSPICKUP;
+        +INVENTORY.PERSISTENTPOWER;
+        +INVENTORY.INVBAR;
+        +INVENTORY.HUBPOWER;
+        Inventory.InterHubAmount 99;
+        Inventory.MaxAmount 99;
+        Inventory.Amount 1;
+    }
+    
+    States
+    {
+        Spawn:
+            TNT1 A 0;
+            Stop;
+        Use:
+            TNT1 A 0
+            {
+                invoker.owner.A_GiveInventory(invoker.ReplacementClass);
+            }
+            Stop;
+    }
+}
