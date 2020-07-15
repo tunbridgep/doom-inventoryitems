@@ -62,10 +62,14 @@ class SimpleInventoryItems : EventHandler
         replacement.ReplacementClass = source.GetClass();
         replacement.UseSound = source.PickupSound;
         replacement.ChangeTID(source.tid);
-        replacement.Special = source.Special;
+        //replacement.Special = source.Special;
+        
+        //make sure our new item counts and our old one doesn't
+        replacement.bCOUNTITEM = source.bCOUNTITEM;
+        source.bCOUNTITEM = false;
         
         //replacement.PickupMsg = source.PickupMsg;
-        
+        source.Deactivate(replacement);
         source.Destroy();
     }
     
@@ -106,7 +110,9 @@ class SimpleInventoryItems : EventHandler
         else if (isClass(a,"NewBlurSphere") && inventory_replace_blursphere) ReplaceCompletely(a,"BlurspherePickup");
         else if (isClass(a,"DemonRuneBaron") && inventory_replace_demonrune) ReplaceCompletely(a,"DemonRuneBaronPickup");
         else if (isClass(a,"DemonRuneRevenant") && inventory_replace_demonrune) ReplaceCompletely(a,"DemonRuneRevenantPickup");
-        else if (isClass(a,"CombatBackpack") && inventory_replace_backpack) ReplaceCompletely(a,"CombatBackpackPickup");
-        else if (isClass(a,"RegularBackPack") && inventory_replace_backpack) ReplaceCompletely(a,"BackpackPickup");
+        
+        //These don't work properly
+        //else if (isClass(a,"CombatBackpack") && inventory_replace_backpack) ReplaceCompletely(a,"CombatBackpackPickup");
+        //else if (isClass(a,"RegularBackPack") && inventory_replace_backpack) ReplaceCompletely(a,"BackpackPickup");
     }
 }

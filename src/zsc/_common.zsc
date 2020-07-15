@@ -5,7 +5,7 @@ class PowerupCommon : CustomInventory
 
     Default
     {
-        +COUNTITEM;
+        -COUNTITEM;
         +INVENTORY.ALWAYSPICKUP;
         +INVENTORY.PERSISTENTPOWER;
         +INVENTORY.INVBAR;
