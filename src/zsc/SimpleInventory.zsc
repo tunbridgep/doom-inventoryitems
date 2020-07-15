@@ -93,6 +93,18 @@ class SimpleInventoryItems : EventHandler
         return false;
     }
     
+    //special case for replacing radiation suit
+    private bool ShouldReplaceRadsuit(Actor a)
+    {
+        if (a.CurSector != null && inventory_radsuit_checkfloor)
+        {
+            SecSpecial spec;
+            a.CurSector.GetSpecial(spec);
+            return spec.DamageAmount > 0;
+        }
+        return false;
+    }
+       
     override void WorldThingSpawned(WorldEvent e)
     {   
         Inventory a = Inventory(e.Thing);
@@ -107,7 +119,7 @@ class SimpleInventoryItems : EventHandler
         else if (a is blursphere && inventory_replace_blursphere) ReplaceCompletely(a,"BlurspherePickup");
         else if (a is invulnsphere && inventory_replace_invulnsphere) ReplaceCompletely(a,"InvulnerabilitySpherePickup");
         else if (a is berserk && inventory_replace_berserk) ReplaceCompletely(a,"BerserkPickup");
-        else if (a is radsuit && inventory_replace_radsuit) ReplaceCompletely(a,"RadsuitPickup");
+        else if (a is radsuit && !ShouldReplaceRadsuit(a) && inventory_replace_radsuit) ReplaceCompletely(a,"RadsuitPickup");
         else if (a is backpack && inventory_replace_backpack) ReplaceCompletely(a,"BackpackPickup");
         else if (a is allmap && inventory_replace_allmap) ReplaceCompletely(a,"AllmapPickup");
         else if (a is infrared && inventory_replace_infrared) ReplaceCompletely(a,"InfraredPickup");

@@ -1,4 +1,4 @@
-class MegaBerserkPickup : PowerupCommon
+class MegaBerserkPickup : HealthPowerup
 {
     Default
     {
@@ -103,7 +103,7 @@ class HasteSpherePickup : PowerupCommon
     }
 }
 
-class TimeSpherePickup : PowerupCommon
+class TimeSpherePickup : HealthPowerup
 {
     Default
     {

@@ -15,5 +15,5 @@ server bool inventory_replace_ragesphere = true;
 server bool inventory_replace_hastesphere = true;
 server bool inventory_replace_timesphere = true;
 
-server bool inventory_replace_radsuit_checkfloor = true;
-server int inventory_replace_checkhealth_amount = -1;
+server bool inventory_radsuit_checkfloor = true;
+server int inventory_checkhealth_amount = 0;
