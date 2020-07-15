@@ -1,0 +1,12 @@
+{
+	"debug":"true",
+	"inputs": [
+		{ "dir":"./src" }
+	],
+	"steps":[
+   		{"type":"zscript", "settings":{ "dir":"zsc", "output":"zscript.txt"} }
+	],
+	"outputs": [
+		{"type":"zip", "settings":{ "cmd":"7z -mx1 a","path":"./rel","name":"SimpleInventoryItems.pk7", "split":"false"} }
+	]
+}
