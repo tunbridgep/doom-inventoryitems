@@ -62,21 +62,19 @@ class SimpleInventoryItems : EventHandler
         replacement.bVISIBILITYPULSE = source.bVISIBILITYPULSE;
         replacement.bBIGPOWERUP = source.bBIGPOWERUP;
         replacement.bQUIET = source.bQUIET;
-        replacement.bQUIET = source.bQUIET;
         replacement.bISARMOR = source.bISARMOR;
-        replacement.bISHEALTH = source.bISHEALTH;
         replacement.bISHEALTH = source.bISHEALTH;
         replacement.bDONTGIB = source.bDONTGIB;
         replacement.ReplacementClass = source.GetClass();
         replacement.UseSound = source.PickupSound;
         replacement.ChangeTID(source.tid);
+        replacement.FakePickupMessage = source.PickupMsg;
         //replacement.Special = source.Special;
         
         //make sure our new item counts and our old one doesn't
         replacement.bCOUNTITEM = source.bCOUNTITEM;
         source.bCOUNTITEM = false;
         
-        //replacement.PickupMsg = source.PickupMsg;
         source.Deactivate(replacement);
         source.Destroy();
     }
@@ -126,6 +124,7 @@ class SimpleInventoryItems : EventHandler
         
         //PB Items
         else if (isClass(a,"NormalBerserk") && inventory_replace_berserk) ReplaceCompletely(a,"BerserkPickup");
+        else if (isClass(a,"NewAllmap") && inventory_replace_berserk) ReplaceCompletely(a,"AllmapPickup");
         else if (isClass(a,"MegaBerserk") && inventory_replace_berserk) ReplaceCompletely(a,"MegaBerserkPickup");
         else if (isClass(a,"NewBlurSphere") && inventory_replace_blursphere) ReplaceCompletely(a,"BlurspherePickup");
         else if (isClass(a,"DemonRuneBaron") && inventory_replace_demonrune) ReplaceCompletely(a,"DemonRuneBaronPickup");

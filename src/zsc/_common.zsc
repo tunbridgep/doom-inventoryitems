@@ -2,6 +2,7 @@ class PowerupCommon : CustomInventory
 {
     class<Inventory> ReplacementClass;
     SimpleInventoryItems handler;
+    String FakePickupMessage;
 
     Default
     {
@@ -23,7 +24,12 @@ class PowerupCommon : CustomInventory
         owner.A_GiveInventory(ReplacementClass);
         Destroy();
     }
-       
+    
+    override String PickupMessage ()
+	{
+		return FakePickupMessage;
+	}
+    
     States
     {
         Spawn:

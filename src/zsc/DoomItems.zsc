@@ -8,7 +8,7 @@ class SoulspherePickup : HealthPowerup
     States
     {
         Spawn:
-            SOUL ABCDCB 6 Bright;
+            SOUL ABCDCB 6 Bright; // A_SpawnItem("BlueFlareMedium2",0,30)
             Loop;
     }
 }
@@ -23,7 +23,7 @@ class MegaspherePickup : HealthPowerup
     States
     {
         Spawn:
-            MEGA ABCD 6 Bright;
+            MEGA ABCD 6 Bright; //A_SpawnItem("LensFlare",0,35)
             Loop;
     }
 }
@@ -53,7 +53,7 @@ class InvulnerabilitySpherePickup : HealthPowerup
     States
     {
         Spawn:
-            PINV ABCD 6 Bright;
+            PINV ABCD 6 Bright; // A_SpawnItem("GreenFlareMedium",0,35)
             Loop;
     }
 }
@@ -114,6 +114,7 @@ class InfraredPickup : PowerupCommon
     {
         Spawn:
             PVIS A 6 Bright;
+            //PVIS AAAAA 2 BRIGHT A_SpawnItem("RedFlareVerySmall",0,10)
             PVIS B 6;
             Loop;
     }
