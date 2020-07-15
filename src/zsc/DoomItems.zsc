@@ -80,6 +80,17 @@ class RadSuitPickup : PowerupCommon
         Inventory.Icon "SUITINV";
     }
     
+    private bool IsPoisonFloor()
+    {
+        if (CurSector != null)
+        {
+            SecSpecial spec;
+            CurSector.GetSpecial(spec);
+            return spec.DamageAmount > 0;
+        }
+        return false;
+    }
+    
     States
     {
         Spawn:

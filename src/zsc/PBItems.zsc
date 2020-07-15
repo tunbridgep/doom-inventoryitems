@@ -1,0 +1,59 @@
+class MegaBerserkPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "MBERINV";
+    }
+    
+    States
+    {
+        Spawn:
+            MSTR A -1;
+            Stop;
+    }
+}
+
+class DemonRuneBaronPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "BARUINV";
+    }
+    
+    States
+    {
+        Spawn:
+            MSTR A -1;
+            Stop;
+    }
+}
+
+class DemonRuneRevenantPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "RERUINV";
+    }
+    
+    States
+    {
+        Spawn:
+            MSTR A -1;
+            Stop;
+    }
+}
+
+class CombatBackpackPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "CBPKINV";
+    }
+    
+    States
+    {
+        Spawn:
+            CMPK ABCDEFG 1;
+    		Loop;
+    }
+}

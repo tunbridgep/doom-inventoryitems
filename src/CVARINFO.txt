@@ -7,3 +7,7 @@ server bool inventory_replace_radsuit = false;
 server bool inventory_replace_infrared = true;
 server bool inventory_replace_allmap = false;
 server bool inventory_replace_backpack = false;
+server bool inventory_replace_demonrune = true;
+
+server bool inventory_replace_radsuit_checkfloor = true;
+server int inventory_replace_checkhealth_amount = -1;
