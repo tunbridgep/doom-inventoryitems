@@ -7,7 +7,13 @@ server bool inventory_replace_radsuit = false;
 server bool inventory_replace_infrared = true;
 server bool inventory_replace_allmap = false;
 server bool inventory_replace_backpack = false;
+
+//PB stuff
 server bool inventory_replace_demonrune = true;
+server bool inventory_replace_doublesphere = true;
+server bool inventory_replace_ragesphere = true;
+server bool inventory_replace_hastesphere = true;
+server bool inventory_replace_timesphere = true;
 
 server bool inventory_replace_radsuit_checkfloor = true;
 server int inventory_replace_checkhealth_amount = -1;

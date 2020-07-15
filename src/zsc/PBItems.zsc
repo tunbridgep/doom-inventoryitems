@@ -57,3 +57,63 @@ class CombatBackpackPickup : PowerupCommon
     		Loop;
     }
 }
+
+class DoubleSpherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "DOUBINV";
+    }
+    
+    States
+    {
+        Spawn:
+            DDMG AAABBBCCCDDD 2 Bright;
+    		Loop;
+    }
+}
+
+class RageSpherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "RAGEINV";
+    }
+    
+    States
+    {
+        Spawn:
+            BLDS ABCDCB 6 Bright;
+    		Loop;
+    }
+}
+
+class HasteSpherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "HSTEINV";
+    }
+    
+    States
+    {
+        Spawn:
+            HAST AAABBBCCC 2;
+    		Loop;
+    }
+}
+
+class TimeSpherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "TIMEINV";
+    }
+    
+    States
+    {
+        Spawn:
+            TIME AAABBBCCCDDD 2 Bright;
+    		Loop;
+    }
+}
