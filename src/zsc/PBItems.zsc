@@ -68,7 +68,7 @@ class DoubleSpherePickup : PowerupCommon
     States
     {
         Spawn:
-            DDMG AAABBBCCCDDD 2 Bright;
+            DDMG AAABBBCCCDDD 2 Bright;// A_SpawnItem("PurpleFlareMedium",0,30);
     		Loop;
     }
 }
@@ -98,7 +98,7 @@ class HasteSpherePickup : PowerupCommon
     States
     {
         Spawn:
-            HAST AAABBBCCC 2;
+            HAST AAABBBCCC 2;// A_SpawnItem("YellowFlareMedium",0,30);
     		Loop;
     }
 }
@@ -113,7 +113,7 @@ class TimeSpherePickup : PowerupCommon
     States
     {
         Spawn:
-            TIME AAABBBCCCDDD 2 Bright;
+            HAST AAABBBCCC 2;// A_SpawnItem("YellowFlareMedium",0,30);
     		Loop;
     }
 }
