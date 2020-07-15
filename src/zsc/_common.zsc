@@ -14,12 +14,7 @@ class PowerupCommon : CustomInventory
         Inventory.MaxAmount 99;
         Inventory.Amount 1;
     }
-    
-    override void BeginPlay()
-    {
-        handler = SimpleInventoryItems(EventHandler.Find("SimpleInventoryItems"));
-    }
-    
+       
     States
     {
         Spawn:
@@ -27,7 +22,8 @@ class PowerupCommon : CustomInventory
             Stop;
         Use:
             TNT1 A 0
-            {                
+            {
+                invoker.handler = SimpleInventoryItems(EventHandler.Find("SimpleInventoryItems"));
                 invoker.handler.IgnoreNext = true;
                 invoker.owner.A_GiveInventory(invoker.ReplacementClass);
             }

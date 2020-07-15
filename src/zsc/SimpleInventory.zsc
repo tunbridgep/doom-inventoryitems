@@ -107,5 +107,6 @@ class SimpleInventoryItems : EventHandler
         else if (isClass(a,"DemonRuneBaron") && inventory_replace_demonrune) ReplaceCompletely(a,"DemonRuneBaronPickup");
         else if (isClass(a,"DemonRuneRevenant") && inventory_replace_demonrune) ReplaceCompletely(a,"DemonRuneRevenantPickup");
         else if (isClass(a,"CombatBackpack") && inventory_replace_backpack) ReplaceCompletely(a,"CombatBackpackPickup");
+        else if (isClass(a,"RegularBackPack") && inventory_replace_backpack) ReplaceCompletely(a,"BackpackPickup");
     }
 }
