@@ -59,6 +59,8 @@ class SimpleInventoryItems : EventHandler
         
         replacement.bFLOATBOB = source.bFLOATBOB;
         replacement.bNOGRAVITY = source.bNOGRAVITY;
+        replacement.bVISIBILITYPULSE = source.bVISIBILITYPULSE;
+        replacement.bDONTGIB = source.bDONTGIB;
         replacement.ReplacementClass = source.GetClass();
         replacement.UseSound = source.PickupSound;
         replacement.ChangeTID(source.tid);
