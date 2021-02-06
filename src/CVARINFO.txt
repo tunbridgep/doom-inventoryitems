@@ -3,7 +3,7 @@ server bool inventory_replace_blursphere = true;
 server bool inventory_replace_soulsphere = true;
 server bool inventory_replace_invulnsphere = true;
 server bool inventory_replace_berserk = true;
-server bool inventory_replace_radsuit = false;
+server int inventory_replace_radsuit = 2; //0 = don't replace, 1 = always replace, >1 = only replace when not on a poison floor
 server bool inventory_replace_infrared = true;
 server bool inventory_replace_allmap = false;
 server bool inventory_replace_backpack = false;
@@ -15,5 +15,5 @@ server bool inventory_replace_ragesphere = true;
 server bool inventory_replace_hastesphere = true;
 server bool inventory_replace_timesphere = true;
 
-server bool inventory_radsuit_checkfloor = true;
+//server bool inventory_radsuit_checkfloor = true;
 server int inventory_checkhealth_amount = 0;

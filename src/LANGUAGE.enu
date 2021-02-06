@@ -1,0 +1,25 @@
+[enu default] 
+
+//Items
+INVENTORY_SETTINGS = "Simple Inventory Settings";
+INVENTORY_MEGASPHERE = "Megasphere";
+INVENTORY_BLURSPHERE = "Blursphere";
+INVENTORY_SOULSPHERE = "Soulsphere";
+INVENTORY_INVULNSPHERE = "Invulnerability Sphere";
+INVENTORY_BERSERK = "Berserk";
+INVENTORY_RADSUIT = "Radiation Suit";
+INVENTORY_INFRARED = "Infrared Goggles";
+INVENTORY_ALLMAP = "Full Map";
+INVENTORY_DOUBLESPHERE = "Double Sphere";
+INVENTORY_HASTESPHERE = "Haste Sphere";
+
+//Headings, Menus etc
+INVENTORY_PB = "Project Brutality Specific Items";
+
+//Misc
+INVENTORY_HEALTH_AMOUNT = "Health Threshold";
+INVENTORY_HEALTH_AMOUNT_DESC = "Items that give health or Invulnerability will not be sent to inventory when below this health amount";
+
+INVENTORY_NEVER = "Use on Pickup";
+INVENTORY_ALWAYS = "Send to Inventory";
+INVENTORY_RADSUIT_SPECIAL = "Send to Inventory when not in damaging sector";

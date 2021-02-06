@@ -13,6 +13,7 @@ class MegaBerserkPickup : HealthPowerup
     }
 }
 
+/*
 class DemonRuneBaronPickup : PowerupCommon
 {
     Default
@@ -42,6 +43,7 @@ class DemonRuneRevenantPickup : PowerupCommon
             Stop;
     }
 }
+*/
 
 class CombatBackpackPickup : PowerupCommon
 {
@@ -68,11 +70,16 @@ class DoubleSpherePickup : PowerupCommon
     States
     {
         Spawn:
-            DDMG AAABBBCCCDDD 2 Bright;// A_SpawnItem("PurpleFlareMedium",0,30);
+            DDMG AAABBBCCCDDD 2 Bright
+            {
+                invoker.SpawnAdditionalItem("PurpleFlareMedium",0,30);
+            } // A_SpawnItem("PurpleFlareMedium",0,30);
     		Loop;
     }
 }
 
+/*
+//Note: I don't think this actually exists. I've never seen one
 class RageSpherePickup : PowerupCommon
 {
     Default
@@ -87,22 +94,28 @@ class RageSpherePickup : PowerupCommon
     		Loop;
     }
 }
+*/
 
 class HasteSpherePickup : PowerupCommon
 {
     Default
     {
-        Inventory.Icon "HSTEINV";
+        Inventory.Icon "HASTEINV";
     }
     
     States
     {
         Spawn:
-            HAST AAABBBCCC 2;// A_SpawnItem("YellowFlareMedium",0,30);
+            HAST AAABBBCCC 2
+            {
+                invoker.SpawnAdditionalItem("YellowFlareMedium",0,30);
+            } // A_SpawnItem("YellowFlareMedium",0,30);
     		Loop;
     }
 }
 
+/*
+//Note: I don't think this actually exists. I've never seen one
 class TimeSpherePickup : HealthPowerup
 {
     Default
@@ -117,3 +130,4 @@ class TimeSpherePickup : HealthPowerup
     		Loop;
     }
 }
+*/

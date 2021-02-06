@@ -21,13 +21,23 @@ class PowerupCommon : CustomInventory
     {
         handler = SimpleInventoryItems(EventHandler.Find("SimpleInventoryItems"));
         handler.IgnoreNext = true;
-        owner.A_GiveInventory(ReplacementClass);
-        Destroy();
+        owner.GiveInventory(ReplacementClass,1);
+        //owner.TakeInventory(self.GetClass(),1);
+        //Destroy();
     }
     
     override String PickupMessage ()
 	{
 		return FakePickupMessage;
+	}
+	
+	protected void SpawnAdditionalItem(String item, int x, int y)
+	{       
+        Class<Actor> cls = item;
+        if (cls)
+        {
+            A_SpawnItem(item,x,y);
+        }
 	}
     
     States
@@ -49,14 +59,25 @@ class HealthPowerup : PowerupCommon
     private bool checked;
     
     //the first frame where we get an owner, check if we are able to be used
-    override void Tick()
+    void CheckHealth(Actor other)
     {
-        if (owner && !checked)
+        if (!checked)
         {
-            if (owner.health <= inventory_checkhealth_amount)
+            if (other.health <= inventory_checkhealth_amount)
                 UseRealItem();
             checked = true;
         }
-        super.Tick();
-    }    
+    }
+    
+    override void AttachToOwner(Actor other)
+    {
+        CheckHealth(other);
+        super.AttachToOwner(other);
+    }
+    
+    override bool HandlePickup(Inventory item)
+    {
+        CheckHealth(owner);
+        return super.HandlePickup(item);
+    }
 }

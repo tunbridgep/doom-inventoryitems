@@ -3,13 +3,21 @@ class SoulspherePickup : HealthPowerup
     Default
     {
         Inventory.Icon "SOULINV";
+        RenderStyle "Translucent";
     }
     
     States
     {
         Spawn:
-            SOUL ABCDCB 6 Bright; // A_SpawnItem("BlueFlareMedium2",0,30)
+            TNT1 A 0 A_CheckSight("Spawn2");
+            SOUL AAABBBCCCDDDCCCBBB 2 Bright
+            {
+                invoker.SpawnAdditionalItem("BlueFlareMedium2",0,30);
+            }
             Loop;
+        Spawn2:
+            SOUL ABCDCB 2 BRIGHT;
+            Goto Spawn;
     }
 }
 
@@ -23,8 +31,15 @@ class MegaspherePickup : HealthPowerup
     States
     {
         Spawn:
-            MEGA ABCD 6 Bright; //A_SpawnItem("LensFlare",0,35)
+            TNT1 A 0 A_CheckSight("Spawn2");
+            MEGA AABBCCDD 2 BRIGHT
+            {
+                invoker.SpawnAdditionalItem("LensFlare",0,35);
+            }
             Loop;
+        Spawn2:	
+            MEGA AABBCCDD 2 BRIGHT;
+            Goto Spawn;
     }
 }
 
@@ -53,7 +68,11 @@ class InvulnerabilitySpherePickup : HealthPowerup
     States
     {
         Spawn:
-            PINV ABCD 6 Bright; // A_SpawnItem("GreenFlareMedium",0,35)
+            PINV AAABBBCCCDDD 2 Bright
+            {
+                invoker.SpawnAdditionalItem("GreenFlareMedium",0,35);
+            }
+            //PINV ABCD 6 Bright; // A_SpawnItem("GreenFlareMedium",0,35)
             Loop;
     }
 }
@@ -113,8 +132,11 @@ class InfraredPickup : PowerupCommon
     States
     {
         Spawn:
-            PVIS A 6 Bright;
-            //PVIS AAAAA 2 BRIGHT A_SpawnItem("RedFlareVerySmall",0,10)
+            //PVIS A 6 Bright;
+            PVIS AAAAA 2 BRIGHT
+            {
+                invoker.SpawnAdditionalItem("RedFlareVerySmall",0,10);
+            } //A_SpawnItem("RedFlareVerySmall",0,10)
             PVIS B 6;
             Loop;
     }
