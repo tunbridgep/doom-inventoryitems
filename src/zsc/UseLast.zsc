@@ -2,11 +2,24 @@ class UseLastHandler : EventHandler
 {
     private Array<PowerupCommon> lastPickups;
     
-    void AddItem(PowerupCommon item)
+    uint AddItem(PowerupCommon item)
     {
         let pos = lastPickups.Push(item);
         if (inventory_debug)
             Console.Printf("Adding "..item.GetClassName().." to last-used array at position "..pos);
+        return pos;
+    }
+    
+    void RemoveItem(PowerupCommon item)
+    {
+        let pos = lastPickups.Find(item);
+        
+        if (pos < lastPickups.Size())
+        {
+            lastPickups.Delete(pos);
+            if (inventory_debug)
+                Console.Printf("Removing "..item.GetClassName().." from last-used array at position "..pos);
+        }
     }
     
     private PowerupCommon GetLastItem()
@@ -15,7 +28,7 @@ class UseLastHandler : EventHandler
         while (last == null && lastPickups.Size() > 0)
         {
             last = lastPickups[lastPickups.Size() - 1];
-            lastPickups.Pop();
+            //lastPickups.Pop();
         }
         return last;
     }

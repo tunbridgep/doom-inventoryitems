@@ -4,12 +4,10 @@ class PowerupCommon : CustomInventory
     private SimpleInventoryItems handler;
     private UseLastHandler lastHandler;
     String FakePickupMessage;
+    int GiveAmount; //for powerups that give more than 1 per pickup (like Soulsphere), give that many when giving out the actual item
 
     Default
     {
-        -COUNTITEM;
-        +DONTGIB
-        +INVENTORY.ALWAYSPICKUP;
         +INVENTORY.PERSISTENTPOWER;
         +INVENTORY.INVBAR;
         +INVENTORY.HUBPOWER;
@@ -20,11 +18,9 @@ class PowerupCommon : CustomInventory
     
     void UseRealItem()
     {
-        handler = SimpleInventoryItems(EventHandler.Find("SimpleInventoryItems"));
         handler.IgnoreNext = true;
-        owner.GiveInventory(ReplacementClass,1);
-        //owner.TakeInventory(self.GetClass(),1);
-        //Destroy();
+        owner.GiveInventory(ReplacementClass,GiveAmount);
+        lastHandler.RemoveItem(self);
     }
     
     override String PickupMessage ()
@@ -35,6 +31,7 @@ class PowerupCommon : CustomInventory
 	override void AttachToOwner(Actor other)
     {
         super.AttachToOwner(other);
+        handler = SimpleInventoryItems(EventHandler.Find("SimpleInventoryItems"));
         lastHandler = UseLastHandler(EventHandler.Find("UseLastHandler"));
         lastHandler.AddItem(self);
     }

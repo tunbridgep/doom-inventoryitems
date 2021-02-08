@@ -18,10 +18,10 @@ class UseHealthHandler : EventHandler
     
     override void OnRegister()
     {
-        AddHealthItem("BerserkPickup",100,200);
-        AddHealthItem("SoulspherePickup",100,200);
-        AddHealthItem("MegaBerserkPickup",200,200);
-        AddHealthItem("MegaspherePickup",200,200);
+        AddHealthItem("BerserkPickup",100,200,0,0);
+        AddHealthItem("SoulspherePickup",100,200,0,0);
+        AddHealthItem("MegaBerserkPickup",200,200,0,0);
+        AddHealthItem("MegaspherePickup",200,200,200,200);
         
         SortHealthItems();
     }
@@ -30,6 +30,8 @@ class UseHealthHandler : EventHandler
     Inventory GetBestHealing(Actor player)
     {
         int health = player.Health;
+        let armorItem = player.FindInventory("BasicArmor", true);
+        int armor = BasicArmor(armorItem).ActualSaveAmount;
     
         Inventory re = null;
         int best = 0; //the best amount of healing we will get from our item
@@ -42,19 +44,32 @@ class UseHealthHandler : EventHandler
             
             int max = healthItems[i].healMax;
             int amt = healthItems[i].healAmount;
+            int amax = healthItems[i].armorMax;
+            int aamt = healthItems[i].armorAmount;
         
+            //handle health
             let healing = max - health;
             if (healing > amt)
                 healing = amt;
+            else if (healing < 0)
+                healing = 0;
                 
-            Console.Printf(healthItems[i].classname.." will heal for "..healing.." - best is currently "..best);
+            //handle armor
+            let ahealing = amax - armor;
+            if (ahealing > aamt)
+                ahealing = aamt;
+            else if (ahealing < 0)
+                ahealing = 0;
+                            
+            int total_healing = healing + ahealing;
             
             //it's sorted so the BEST healing items will be first,
             //therefore, by using >=, items that are tied will use the lowest healing item
-            if (healing >= best)
+            if (total_healing >= best && total_healing > 0)
             {
-                best = healing;
+                best = total_healing;
                 re = item;
+                //Console.Printf(healthItems[i].classname.." will heal for "..healing.." + "..ahealing.." - best is currently "..best);
             }
         }
         return re;
@@ -83,7 +98,7 @@ class UseHealthHandler : EventHandler
     }
        
     //void AddHealthItem(String name, int healAmount, int maxHealAmount, int armorAmount, int armorMax)
-    private void AddHealthItem(String name, int healAmount, int maxHealAmount)
+    private void AddHealthItem(String name, int healAmount, int maxHealAmount, int armorAmount, int armorMax)
     {
         if (size >= MAX_ARRAY_SIZE)
         {
@@ -94,9 +109,11 @@ class UseHealthHandler : EventHandler
             healthItems[size].classname = name;
             healthItems[size].healAmount = healAmount;
             healthItems[size].healMax = maxHealAmount;
+            healthItems[size].armorAmount = armorAmount;
+            healthItems[size].armorMax = armorMax;
             
             if (inventory_debug)
-                Console.Printf("New health item archetype found - "..name..", healing for "..healAmount.." ("..maxHealAmount.." max). Adding in position "..size);
+                Console.Printf("New health item archetype added - "..name..", healing for "..healAmount.."/"..armorAmount.." ("..maxHealAmount.."/"..armorMax.." max). Adding in position "..size);
             
             size++;
             //SortHealthItems();
@@ -113,34 +130,38 @@ class UseHealthHandler : EventHandler
             finished = true;
             for (int i = 0;i < size - 1;i++)
             {
-                if (healthItems[i].healAmount < healthItems[i + 1].healAmount)
+                int healAmt = healthItems[i].healAmount + healthItems[i].armorAmount;
+                int healAmt2 = healthItems[i+1].healAmount + healthItems[i+1].armorAmount;
+                if (healAmt < healAmt2)
                 {
                     //we cannot allocate structs, so we have to manually copy over every element
                     let name = healthItems[i].classname;
                     let amt = healthItems[i].healAmount;
                     let max = healthItems[i].healMax;
-                    
-                    Console.Printf("name = "..name);
+                    let aamt = healthItems[i].armorAmount;
+                    let amax = healthItems[i].armorMax;
                     
                     healthItems[i].classname = healthItems[i + 1].classname;
                     healthItems[i].healAmount = healthItems[i + 1].healAmount;
                     healthItems[i].healMax = healthItems[i + 1].healMax;
+                    healthItems[i].armorAmount = healthItems[i + 1].armorAmount;
+                    healthItems[i].armorMax = healthItems[i + 1].armorMax;
                     
                     healthItems[i + 1].classname = name;
                     healthItems[i + 1].healAmount = amt;
                     healthItems[i + 1].healMax = max;
+                    healthItems[i + 1].armorAmount = aamt;
+                    healthItems[i + 1].armorMax = amax;
                     
                     finished = false;
                 }
-                else
-                    Console.Printf("derp");
             }
         }
         if (inventory_debug)
         {
             Console.Printf("Sorted array by healing amount...");
             for (int i = 0;i < size;i++)
-                Console.Printf(healthItems[i].classname..", healing for "..healthItems[i].healAmount.." sorted to position "..i);
+                Console.Printf(healthItems[i].classname..", healing for "..healthItems[i].healAmount.."/"..healthItems[i].armorAmount.." sorted to position "..i);
         }
     }
     

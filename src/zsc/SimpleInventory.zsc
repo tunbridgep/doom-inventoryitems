@@ -66,12 +66,13 @@ class SimpleInventoryItems : EventHandler
         replacement.bISARMOR = source.bISARMOR;
         replacement.bISHEALTH = source.bISHEALTH;
         replacement.bDONTGIB = source.bDONTGIB;
-        replacement.bVISIBILITYPULSE = source.bVISIBILITYPULSE;
+        replacement.bALWAYSPICKUP = source.bALWAYSPICKUP;
         replacement.ReplacementClass = source.GetClass();
         replacement.PickupSound = source.PickupSound;
         replacement.UseSound = source.PickupSound;
         replacement.ChangeTID(source.tid);
         replacement.FakePickupMessage = source.PickupMsg;
+        replacement.GiveAmount = source.Amount;
         //replacement.Special = source.Special;
         
         //make sure our new item counts and our old one doesn't
