@@ -1,0 +1,4 @@
+//addkeysection "Simple Inventory Items" SimpleInventoryItemsSection
+   //addmenukey "Use Last Inventory Item" inventory_uselast
+   alias inventory_uselast "netevent SimpleInventoryUseLast"
+   defaultbind V inventory_uselast 

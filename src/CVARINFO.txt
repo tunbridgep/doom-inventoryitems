@@ -17,3 +17,6 @@ server bool inventory_replace_timesphere = true;
 
 //server bool inventory_radsuit_checkfloor = true;
 server int inventory_checkhealth_amount = 0;
+
+//misc
+server bool inventory_debug = false;

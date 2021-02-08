@@ -1,0 +1,42 @@
+class UseLastHandler : EventHandler
+{
+    private Array<PowerupCommon> lastPickups;
+    
+    void AddItem(PowerupCommon item)
+    {
+        let pos = lastPickups.Push(item);
+        if (inventory_debug)
+            Console.Printf("Adding "..item.GetClassName().." to array at position "..pos);
+    }
+    
+    private PowerupCommon GetLastItem()
+    {
+        PowerupCommon last;
+        while (last == null && lastPickups.Size() > 0)
+        {
+            last = lastPickups[lastPickups.Size() - 1];
+            lastPickups.Pop();
+        }
+        return last;
+    }
+
+    override void NetworkProcess (ConsoleEvent e) 
+    {
+        if (e.isManual && e.Name == "SimpleInventoryUseLast")
+        {
+            let last = GetLastItem();
+        
+            if (last != null)
+            {
+                String usemsg_prefix = Stringtable.Localize("$INVENTORY_USE_ITEM_PRE");
+                Console.Printf(usemsg_prefix.." "..last.ReplacementClass.GetClassName().."...");
+                players[e.Player].mo.UseInventory(last);
+            }
+            else
+            {
+                String failmsg = Stringtable.Localize("$INVENTORY_NO_ITEM");
+                Console.Printf(failmsg);
+            }
+        }
+    }
+}

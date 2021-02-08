@@ -1,7 +1,8 @@
 class PowerupCommon : CustomInventory
 {
     class<Inventory> ReplacementClass;
-    SimpleInventoryItems handler;
+    private SimpleInventoryItems handler;
+    private UseLastHandler lastHandler;
     String FakePickupMessage;
 
     Default
@@ -16,7 +17,7 @@ class PowerupCommon : CustomInventory
         Inventory.MaxAmount 99;
         Inventory.Amount 1;
     }
-
+    
     void UseRealItem()
     {
         handler = SimpleInventoryItems(EventHandler.Find("SimpleInventoryItems"));
@@ -30,6 +31,25 @@ class PowerupCommon : CustomInventory
 	{
 		return FakePickupMessage;
 	}
+	
+	override void AttachToOwner(Actor other)
+    {
+        super.AttachToOwner(other);
+        lastHandler = UseLastHandler(EventHandler.Find("UseLastHandler"));
+        lastHandler.AddItem(self);
+    }
+    
+    override bool HandlePickup(Inventory item)
+    {
+        let handled = super.HandlePickup(item);
+        
+        if (handled)
+        {
+            lastHandler = UseLastHandler(EventHandler.Find("UseLastHandler"));
+            lastHandler.AddItem(self);
+        }
+        return handled;
+    }
 	
 	protected void SpawnAdditionalItem(String item, int x, int y)
 	{       

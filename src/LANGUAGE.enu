@@ -19,7 +19,13 @@ INVENTORY_PB = "Project Brutality Specific Items";
 //Misc
 INVENTORY_HEALTH_AMOUNT = "Health Threshold";
 INVENTORY_HEALTH_AMOUNT_DESC = "Items that give health or Invulnerability will not be sent to inventory when below this health amount";
+INVENTORY_NO_ITEM = "No inventory item to use!";
+INVENTORY_USE_ITEM_PRE = "Using";
 
 INVENTORY_NEVER = "Use on Pickup";
 INVENTORY_ALWAYS = "Send to Inventory";
 INVENTORY_RADSUIT_SPECIAL = "Send to Inventory when not in damaging sector";
+
+//key bindings
+INVENTORY_KEYBINDING = "Use Last Inventory Item";
+INVENTORY_KEYBINDING_DESC = "Use the last item added to your inventory";

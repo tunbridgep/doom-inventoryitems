@@ -29,6 +29,9 @@ OptionMenu "SimpleInventoryBase"
     StaticText ""
     Slider "$INVENTORY_HEALTH_AMOUNT", "inventory_checkhealth_amount", 0,100,1,0
     StaticText "$INVENTORY_HEALTH_AMOUNT_DESC"
+    StaticText ""
+    Control "$INVENTORY_KEYBINDING", "inventory_uselast"
+    StaticText "$INVENTORY_KEYBINDING_DESC"
 }
 
 AddOptionMenu "OptionsMenu"
