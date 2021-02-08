@@ -6,7 +6,7 @@ class UseLastHandler : EventHandler
     {
         let pos = lastPickups.Push(item);
         if (inventory_debug)
-            Console.Printf("Adding "..item.GetClassName().." to array at position "..pos);
+            Console.Printf("Adding "..item.GetClassName().." to last-used array at position "..pos);
     }
     
     private PowerupCommon GetLastItem()
@@ -28,8 +28,8 @@ class UseLastHandler : EventHandler
         
             if (last != null)
             {
-                String usemsg_prefix = Stringtable.Localize("$INVENTORY_USE_ITEM_PRE");
-                Console.Printf(usemsg_prefix.." "..last.ReplacementClass.GetClassName().."...");
+                String usemsg = Stringtable.Localize("$INVENTORY_USE_ITEM");
+                Console.Printf(usemsg.."...");
                 players[e.Player].mo.UseInventory(last);
             }
             else

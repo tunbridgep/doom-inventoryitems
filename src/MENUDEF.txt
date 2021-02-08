@@ -32,6 +32,8 @@ OptionMenu "SimpleInventoryBase"
     StaticText ""
     Control "$INVENTORY_KEYBINDING", "inventory_uselast"
     StaticText "$INVENTORY_KEYBINDING_DESC"
+    Control "$INVENTORY_HEAL_KEYBINDING", "inventory_useheal"
+    StaticText "$INVENTORY_HEAL_KEYBINDING_DESC"
 }
 
 AddOptionMenu "OptionsMenu"

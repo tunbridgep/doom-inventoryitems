@@ -1,0 +1,156 @@
+struct HealthItemInfo
+{
+    String classname;
+    int healAmount;
+    int healMax;
+    int armorAmount;
+    int armorMax;
+}
+
+class UseHealthHandler : EventHandler
+{
+    const MAX_ARRAY_SIZE = 200;
+
+    //This has to be a regular array because zscript doesn't allow dynamic arrays of structs
+    private HealthItemInfo[MAX_ARRAY_SIZE] healthItems;
+    private uint size;
+    
+    
+    override void OnRegister()
+    {
+        AddHealthItem("BerserkPickup",100,200);
+        AddHealthItem("SoulspherePickup",100,200);
+        AddHealthItem("MegaBerserkPickup",200,200);
+        AddHealthItem("MegaspherePickup",200,200);
+        
+        SortHealthItems();
+    }
+    
+    //walks through the array of items, finding the most appropriate item for what we need
+    Inventory GetBestHealing(Actor player)
+    {
+        int health = player.Health;
+    
+        Inventory re = null;
+        int best = 0; //the best amount of healing we will get from our item
+        for (int i = 0;i < size;i++)
+        {
+            Inventory item = player.FindInventory(healthItems[i].classname);
+            
+            if (item == null)
+                continue;
+            
+            int max = healthItems[i].healMax;
+            int amt = healthItems[i].healAmount;
+        
+            let healing = max - health;
+            if (healing > amt)
+                healing = amt;
+                
+            Console.Printf(healthItems[i].classname.." will heal for "..healing.." - best is currently "..best);
+            
+            //it's sorted so the BEST healing items will be first,
+            //therefore, by using >=, items that are tied will use the lowest healing item
+            if (healing >= best)
+            {
+                best = healing;
+                re = item;
+            }
+        }
+        return re;
+    }
+    
+    override void NetworkProcess (ConsoleEvent e) 
+    {
+        if (e.isManual && e.Name == "SimpleInventoryUseHeal")
+        {
+            let player = players[e.Player].mo;
+        
+            let best = GetBestHealing(player);
+        
+            if (best != null)
+            {
+                String usemsg_prefix = Stringtable.Localize("$INVENTORY_USE_HEAL");
+                Console.Printf(usemsg_prefix.." "..best.GetTag().."...");
+                player.UseInventory(best);
+            }
+            else
+            {
+                String failmsg = Stringtable.Localize("$INVENTORY_NO_HEAL");
+                Console.Printf(failmsg);
+            }
+        }
+    }
+       
+    //void AddHealthItem(String name, int healAmount, int maxHealAmount, int armorAmount, int armorMax)
+    private void AddHealthItem(String name, int healAmount, int maxHealAmount)
+    {
+        if (size >= MAX_ARRAY_SIZE)
+        {
+            Console.Printf("Health item array size exceeded! Report this as a bug!");
+        }
+        else if (!Contains(name))
+        {
+            healthItems[size].classname = name;
+            healthItems[size].healAmount = healAmount;
+            healthItems[size].healMax = maxHealAmount;
+            
+            if (inventory_debug)
+                Console.Printf("New health item archetype found - "..name..", healing for "..healAmount.." ("..maxHealAmount.." max). Adding in position "..size);
+            
+            size++;
+            //SortHealthItems();
+        }
+    }
+    
+    private void SortHealthItems()
+    {
+        //just do a shitty Bubble sort for now, because it's easy to code
+        bool finished = false;
+        
+        while (finished == false)
+        {
+            finished = true;
+            for (int i = 0;i < size - 1;i++)
+            {
+                if (healthItems[i].healAmount < healthItems[i + 1].healAmount)
+                {
+                    //we cannot allocate structs, so we have to manually copy over every element
+                    let name = healthItems[i].classname;
+                    let amt = healthItems[i].healAmount;
+                    let max = healthItems[i].healMax;
+                    
+                    Console.Printf("name = "..name);
+                    
+                    healthItems[i].classname = healthItems[i + 1].classname;
+                    healthItems[i].healAmount = healthItems[i + 1].healAmount;
+                    healthItems[i].healMax = healthItems[i + 1].healMax;
+                    
+                    healthItems[i + 1].classname = name;
+                    healthItems[i + 1].healAmount = amt;
+                    healthItems[i + 1].healMax = max;
+                    
+                    finished = false;
+                }
+                else
+                    Console.Printf("derp");
+            }
+        }
+        if (inventory_debug)
+        {
+            Console.Printf("Sorted array by healing amount...");
+            for (int i = 0;i < size;i++)
+                Console.Printf(healthItems[i].classname..", healing for "..healthItems[i].healAmount.." sorted to position "..i);
+        }
+    }
+    
+    private bool Contains(string classname)
+    {
+        for (int i = 0;i < size;i++)
+        {
+            if (healthItems[i].classname == classname)
+                return true;
+        }
+        return false;
+    }
+}

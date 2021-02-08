@@ -1,4 +1,8 @@
-//addkeysection "Simple Inventory Items" SimpleInventoryItemsSection
-   //addmenukey "Use Last Inventory Item" inventory_uselast
+//addkeysection "$INVENTORY_SETTINGS" SimpleInventoryItemsSection
+   //addmenukey "$INVENTORY_KEYBINDING" inventory_uselast
    alias inventory_uselast "netevent SimpleInventoryUseLast"
-   defaultbind V inventory_uselast 
+   defaultbind V inventory_uselast
+   
+   //addmenukey "$INVENTORY_HEAL_KEYBINDING" inventory_useheal
+   alias inventory_useheal "netevent SimpleInventoryUseHeal"
+   defaultbind B inventory_useheal 
