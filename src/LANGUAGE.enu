@@ -19,6 +19,10 @@ INVENTORY_PB = "Project Brutality Specific Items";
 //Misc
 INVENTORY_HEALTH_AMOUNT = "Health Threshold";
 INVENTORY_HEALTH_AMOUNT_DESC = "Items that give health or Invulnerability will not be sent to inventory when below this health amount";
+INVENTORY_ICONSET = "Icon Set";
+INVENTORY_ICONSET_DESC = "Determines which icons inventory items will use";
+INVENTORY_ICONSET_DOOM = "Vanilla Doom";
+INVENTORY_ICONSET_PB = "Project Brutality";
 
 //Item Use Key
 INVENTORY_NO_HEAL = "No appropriate healing item to use!";

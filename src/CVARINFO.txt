@@ -7,6 +7,7 @@ server int inventory_replace_radsuit = 2; //0 = don't replace, 1 = always replac
 server bool inventory_replace_infrared = true;
 server bool inventory_replace_allmap = false;
 server bool inventory_replace_backpack = false;
+server int inventory_iconset = 0; //0 = doom. 1 = PB.
 
 //PB stuff
 server bool inventory_replace_demonrune = true;

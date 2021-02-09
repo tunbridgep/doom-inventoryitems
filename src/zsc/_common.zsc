@@ -4,7 +4,13 @@ class PowerupCommon : CustomInventory
     private SimpleInventoryItems handler;
     private UseLastHandler lastHandler;
     String FakePickupMessage;
+    int FakeRenderStyle; //this replaces our normal RenderStyle
     int GiveAmount; //for powerups that give more than 1 per pickup (like Soulsphere), give that many when giving out the actual item
+    
+    //allow skinning
+    string Icon1;
+    string Icon2;
+    property SkinnedIcon: Icon1, Icon2;
 
     Default
     {
@@ -14,6 +20,13 @@ class PowerupCommon : CustomInventory
         Inventory.InterHubAmount 99;
         Inventory.MaxAmount 99;
         Inventory.Amount 1;
+        PowerupCommon.SkinnedIcon "", "";
+    }
+    
+    override void PostBeginPlay()
+    {
+        A_SetRenderStyle(Alpha, FakeRenderStyle);
+        super.PostBeginPlay();
     }
     
     void UseRealItem()
@@ -27,9 +40,32 @@ class PowerupCommon : CustomInventory
 	{
 		return FakePickupMessage;
 	}
+	   
+    private void SetIcon()
+    {
+        if (Icon1 == "" || Icon2 == "")
+            return;
+    
+        TextureID iconID;
+    
+        switch (inventory_iconset)
+        {
+            case 0:
+               iconID = TexMan.CheckForTexture(Icon1,TexMan.TYPE_ANY,TexMan.DONTCREATE);
+               break;
+            case 1:
+                iconID = TexMan.CheckForTexture(Icon2,TexMan.TYPE_ANY,TexMan.DONTCREATE);
+                break;
+        }
+        if (iconID)
+            Icon = iconID;
+        else
+            Console.Printf("Failed to find icon for item "..self.GetTag());
+    }
 	
 	override void AttachToOwner(Actor other)
     {
+        SetIcon();
         super.AttachToOwner(other);
         handler = SimpleInventoryItems(EventHandler.Find("SimpleInventoryItems"));
         lastHandler = UseLastHandler(EventHandler.Find("UseLastHandler"));
@@ -42,6 +78,7 @@ class PowerupCommon : CustomInventory
         
         if (handled)
         {
+            SetIcon();
             lastHandler = UseLastHandler(EventHandler.Find("UseLastHandler"));
             lastHandler.AddItem(self);
         }

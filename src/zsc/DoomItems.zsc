@@ -3,7 +3,6 @@ class SoulspherePickup : HealthPowerup
     Default
     {
         Inventory.Icon "SOULINV";
-        RenderStyle "Translucent";
     }
     
     States
@@ -96,7 +95,7 @@ class RadSuitPickup : PowerupCommon
 {
     Default
     {
-        Inventory.Icon "SUITINV";
+        PowerupCommon.SkinnedIcon "SUITINV", "PBSUTINV";
     }
        
     States
@@ -126,7 +125,7 @@ class InfraredPickup : PowerupCommon
 {
     Default
     {
-        Inventory.Icon "GOGGINV";
+        PowerupCommon.SkinnedIcon "GOGGINV", "PBGOGINV";
     }
     
     States
@@ -146,7 +145,7 @@ class BackpackPickup : PowerupCommon
 {
     Default
     {
-        Inventory.Icon "BKPKINV";
+        PowerupCommon.SkinnedIcon "BKPKINV", "PBBPKINV";
     }
     
     States

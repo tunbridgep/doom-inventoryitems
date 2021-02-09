@@ -73,13 +73,18 @@ class SimpleInventoryItems : EventHandler
         replacement.bUNDROPPABLE = source.bUNDROPPABLE;
         replacement.bNEVERRESPAWN = source.bNEVERRESPAWN;
         replacement.bNOSCREENFLASH = source.bNOSCREENFLASH;
+        //replacement.bPICKUPFLASH = source.bPICKUPFLASH; //Deprecated, but Heretic/Hexen still use it
         replacement.ReplacementClass = source.GetClass();
         replacement.PickupSound = source.PickupSound;
         replacement.PickupFlash = source.PickupFlash;
         replacement.UseSound = source.PickupSound;
-        replacement.ChangeTID(source.tid);
         replacement.FakePickupMessage = source.PickupMsg;
         replacement.GiveAmount = source.Amount;
+        replacement.FakeRenderStyle = source.GetRenderStyle();
+        
+        replacement.SetTag(source.GetTag());
+        replacement.ChangeTID(source.tid);
+        
         //replacement.Special = source.Special;
         
         //make sure our new item counts and our old one doesn't
