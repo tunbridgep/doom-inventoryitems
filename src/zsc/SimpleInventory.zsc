@@ -1,0 +1,161 @@
+class SimpleInventoryItems : EventHandler
+{
+    Class<Actor> soulsphere;
+    Class<Actor> blursphere;
+    Class<Actor> megasphere;
+    Class<Actor> berserk;
+    Class<Actor> radsuit;
+    Class<Actor> backpack;
+    Class<Actor> allmap;
+    Class<Actor> infrared;
+    Class<Actor> invulnsphere;
+    
+    bool IgnoreNext;
+    
+    override void OnRegister()
+    {
+        soulsphere = "Soulsphere";
+        blursphere = "Blursphere";
+        megasphere = "Megasphere";
+        berserk = "Berserk";
+        radsuit = "Radsuit";
+        backpack = "Backpack";
+        allmap = "Allmap";
+        infrared = "Infrared";
+        invulnsphere = "InvulnerabilitySphere";
+        IgnoreNext = false;
+    }
+    
+    override void CheckReplacement(ReplaceEvent e)
+    {   
+        if (!e.replacement)
+            return;
+
+        if (e.Replacee is soulsphere) soulsphere = e.Replacement;
+        else if (e.Replacee is blursphere) blursphere = e.Replacement;
+        else if (e.Replacee is megasphere) megasphere = e.Replacement;
+        else if (e.Replacee is invulnsphere) invulnsphere = e.Replacement;
+        else if (e.Replacee is berserk) berserk = e.Replacement;
+        else if (e.Replacee is radsuit) radsuit = e.Replacement;
+        else if (e.Replacee is backpack) backpack = e.Replacement;
+        else if (e.Replacee is allmap) allmap = e.Replacement;
+        else if (e.Replacee is infrared) infrared = e.Replacement;
+    }
+    
+    //try to emulate an item as closely as possible - have it's pickup sound,
+    //it's floatbob, gravity, etc.
+    protected void ReplaceCompletely(Inventory source, class<Actor> replacement_class)
+    { 
+        if (IgnoreNext)
+        {
+            IgnoreNext = false;
+            return;
+        }
+        
+        PowerupCommon replacement = PowerupCommon(Actor.Spawn(replacement_class,source.pos));
+        
+        if (!replacement)
+            return;
+        
+        replacement.bFLOATBOB = source.bFLOATBOB;
+        replacement.bFLOORCLIP = source.bFLOORCLIP;
+        replacement.bNOGRAVITY = source.bNOGRAVITY;
+        replacement.bVISIBILITYPULSE = source.bVISIBILITYPULSE;
+        replacement.bBIGPOWERUP = source.bBIGPOWERUP;
+        replacement.bQUIET = source.bQUIET;
+        replacement.bISARMOR = source.bISARMOR;
+        replacement.bISHEALTH = source.bISHEALTH;
+        replacement.bDONTGIB = source.bDONTGIB;
+        replacement.bALWAYSPICKUP = source.bALWAYSPICKUP;
+        replacement.bBRIGHT = source.bBRIGHT;
+        replacement.bFORCEXYBILLBOARD = source.bFORCEXYBILLBOARD;
+        replacement.bFORCEYBILLBOARD = source.bFORCEYBILLBOARD;
+        replacement.bUNDROPPABLE = source.bUNDROPPABLE;
+        replacement.bNEVERRESPAWN = source.bNEVERRESPAWN;
+        replacement.bNOSCREENFLASH = source.bNOSCREENFLASH;
+        //replacement.bPICKUPFLASH = source.bPICKUPFLASH; //Deprecated, but Heretic/Hexen still use it
+        replacement.ReplacementClass = source.GetClass();
+        replacement.PickupSound = source.PickupSound;
+        replacement.PickupFlash = source.PickupFlash;
+        replacement.UseSound = source.PickupSound;
+        replacement.FakePickupMessage = source.PickupMsg;
+        replacement.GiveAmount = source.Amount;
+        replacement.FakeRenderStyle = source.GetRenderStyle();
+        
+        replacement.SetTag(source.GetTag());
+        replacement.ChangeTID(source.tid);
+        
+        //replacement.Special = source.Special;
+        
+        //make sure our new item counts and our old one doesn't
+        replacement.bCOUNTITEM = source.bCOUNTITEM;
+        source.bCOUNTITEM = false;
+        
+        //source.Special = null;
+        source.Deactivate(replacement);
+        source.Destroy();
+    }
+    
+    //This will give us more compatibility with other mods.
+    //See here: https://zdoom.org/wiki/ZScript_classes
+    static bool isClass(Actor a, String classname)
+    {
+        Class<Actor> cls = classname;
+        if (cls)
+        {
+            return a is cls;
+        }
+        return false;
+    }
+    
+    //special case for replacing radiation suit
+    private bool ShouldReplaceRadsuit(Actor a)
+    {
+        if (a.CurSector != null && inventory_replace_radsuit > 1)
+        {
+            SecSpecial spec;
+            a.CurSector.GetSpecial(spec);
+            return spec.DamageAmount > 0;
+        }
+        return false;
+    }
+       
+    override void WorldThingSpawned(WorldEvent e)
+    {   
+        Inventory a = Inventory(e.Thing);
+               
+        if (!a)
+            return;
+            
+        //Console.printf("Spawned "..a.GetTag());
+        
+        //else if (a is berserk && inventory_replace_berserk)  { a.bINVBAR = true; a.bAUTOACTIVATE = false; }
+        
+        if (a is soulsphere && inventory_replace_soulsphere) ReplaceCompletely(a,"SoulspherePickup");
+        else if (a is megasphere && inventory_replace_megasphere) ReplaceCompletely(a,"MegaspherePickup");
+        else if (a is blursphere && inventory_replace_blursphere) ReplaceCompletely(a,"BlurspherePickup");
+        else if (a is invulnsphere && inventory_replace_invulnsphere) ReplaceCompletely(a,"InvulnerabilitySpherePickup");
+        else if (a is berserk && inventory_replace_berserk) ReplaceCompletely(a,"BerserkPickup");
+        
+        else if (a is radsuit && !ShouldReplaceRadsuit(a) && inventory_replace_radsuit > 0) ReplaceCompletely(a,"RadsuitPickup");
+        else if (a is backpack && inventory_replace_backpack) ReplaceCompletely(a,"BackpackPickup");
+        else if (a is allmap && inventory_replace_allmap) ReplaceCompletely(a,"AllmapPickup");
+        else if (a is infrared && inventory_replace_infrared) ReplaceCompletely(a,"InfraredPickup");
+        
+        //PB Items
+        else if (isClass(a,"NormalBerserk") && inventory_replace_berserk) ReplaceCompletely(a,"BerserkPickup");
+        else if (isClass(a,"NewAllmap") && inventory_replace_berserk) ReplaceCompletely(a,"AllmapPickup");
+        else if (isClass(a,"MegaBerserk") && inventory_replace_berserk) ReplaceCompletely(a,"MegaBerserkPickup");
+        else if (isClass(a,"NewBlurSphere") && inventory_replace_blursphere) ReplaceCompletely(a,"BlurspherePickup");
+        //else if (isClass(a,"DemonRuneBaron") && inventory_replace_demonrune) ReplaceCompletely(a,"DemonRuneBaronPickup");
+        //else if (isClass(a,"DemonRuneRevenant") && inventory_replace_demonrune) ReplaceCompletely(a,"DemonRuneRevenantPickup");
+        else if (isClass(a,"DoubleSphere") && inventory_replace_doublesphere) ReplaceCompletely(a,"DoubleSpherePickup");
+        //else if (isClass(a,"RageSphere") && inventory_replace_ragesphere) ReplaceCompletely(a,"RageSpherePickup");
+        else if (isClass(a,"HasteSphere") && inventory_replace_hastesphere) ReplaceCompletely(a,"HasteSpherePickup");
+        //else if (isClass(a,"TimeSphere") && inventory_replace_timesphere) ReplaceCompletely(a,"TimeSpherePickup");
+        
+        //These don't work properly
+        //else if (isClass(a,"CombatBackpack") && inventory_replace_backpack) ReplaceCompletely(a,"CombatBackpackPickup");
+        //else if (isClass(a,"RegularBackPack") && inventory_replace_backpack) ReplaceCompletely(a,"BackpackPickup");
+    }
+}

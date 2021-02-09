@@ -1,0 +1,50 @@
+OptionValue RadsuitOptions
+{
+    0, "$INVENTORY_NEVER"
+    1, "$INVENTORY_ALWAYS"
+    2, "$INVENTORY_RADSUIT_SPECIAL"
+}
+
+OptionValue InventoryOptions
+{
+    0, "$INVENTORY_NEVER"
+    1, "$INVENTORY_ALWAYS"
+}
+
+OptionValue IconSetOptions
+{
+    0, "$INVENTORY_ICONSET_DOOM"
+    1, "$INVENTORY_ICONSET_PB"
+}
+
+OptionMenu "SimpleInventoryBase"
+{
+    Title "$INVENTORY_SETTINGS"
+    Option "$INVENTORY_MEGASPHERE", "inventory_replace_megasphere", InventoryOptions
+    Option "$INVENTORY_BLURSPHERE", "inventory_replace_blursphere", InventoryOptions
+    Option "$INVENTORY_SOULSPHERE", "inventory_replace_soulsphere", InventoryOptions
+    Option "$INVENTORY_INVULNSPHERE", "inventory_replace_invulnsphere", InventoryOptions
+    Option "$INVENTORY_BERSERK", "inventory_replace_berserk", InventoryOptions
+    Option "$INVENTORY_RADSUIT", "inventory_replace_radsuit", RadsuitOptions
+    Option "$INVENTORY_INFRARED", "inventory_replace_infrared", InventoryOptions
+    Option "$INVENTORY_ALLMAP", "inventory_replace_allmap", InventoryOptions
+    StaticText ""
+    Option "$INVENTORY_ICONSET", "inventory_iconset", IconSetOptions
+    StaticText "$INVENTORY_ICONSET_DESC"
+    StaticText ""
+    StaticText "$INVENTORY_PB"
+    Option "$INVENTORY_DOUBLESPHERE", "inventory_replace_doublesphere", InventoryOptions
+    StaticText ""
+    Slider "$INVENTORY_HEALTH_AMOUNT", "inventory_checkhealth_amount", 0,100,1,0
+    StaticText "$INVENTORY_HEALTH_AMOUNT_DESC"
+    StaticText ""
+    Control "$INVENTORY_KEYBINDING", "inventory_uselast"
+    StaticText "$INVENTORY_KEYBINDING_DESC"
+    Control "$INVENTORY_HEAL_KEYBINDING", "inventory_useheal"
+    StaticText "$INVENTORY_HEAL_KEYBINDING_DESC"
+}
+
+AddOptionMenu "OptionsMenu"
+{
+    Submenu "$INVENTORY_SETTINGS", "SimpleInventoryBase"
+}  

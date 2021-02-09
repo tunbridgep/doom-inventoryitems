@@ -1,0 +1,23 @@
+server bool inventory_replace_megasphere = true;
+server bool inventory_replace_blursphere = true;
+server bool inventory_replace_soulsphere = true;
+server bool inventory_replace_invulnsphere = true;
+server bool inventory_replace_berserk = true;
+server int inventory_replace_radsuit = 2; //0 = don't replace, 1 = always replace, >1 = only replace when not on a poison floor
+server bool inventory_replace_infrared = true;
+server bool inventory_replace_allmap = false;
+server bool inventory_replace_backpack = false;
+server int inventory_iconset = 0; //0 = doom. 1 = PB.
+
+//PB stuff
+server bool inventory_replace_demonrune = true;
+server bool inventory_replace_doublesphere = true;
+server bool inventory_replace_ragesphere = true;
+server bool inventory_replace_hastesphere = true;
+server bool inventory_replace_timesphere = true;
+
+//server bool inventory_radsuit_checkfloor = true;
+server int inventory_checkhealth_amount = 0;
+
+//misc
+server bool inventory_debug = false;

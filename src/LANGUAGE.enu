@@ -1,0 +1,41 @@
+[enu default] 
+
+//Items
+INVENTORY_SETTINGS = "Simple Inventory Settings";
+INVENTORY_MEGASPHERE = "Megasphere";
+INVENTORY_BLURSPHERE = "Blursphere";
+INVENTORY_SOULSPHERE = "Soulsphere";
+INVENTORY_INVULNSPHERE = "Invulnerability Sphere";
+INVENTORY_BERSERK = "Berserk";
+INVENTORY_RADSUIT = "Radiation Suit";
+INVENTORY_INFRARED = "Infrared Goggles";
+INVENTORY_ALLMAP = "Full Map";
+INVENTORY_DOUBLESPHERE = "Double Sphere";
+INVENTORY_HASTESPHERE = "Haste Sphere";
+
+//Headings, Menus etc
+INVENTORY_PB = "Project Brutality Specific Items";
+
+//Misc
+INVENTORY_HEALTH_AMOUNT = "Health Threshold";
+INVENTORY_HEALTH_AMOUNT_DESC = "Items that give health or Invulnerability will not be sent to inventory when below this health amount";
+INVENTORY_ICONSET = "Icon Set";
+INVENTORY_ICONSET_DESC = "Determines which icons inventory items will use";
+INVENTORY_ICONSET_DOOM = "Vanilla Doom";
+INVENTORY_ICONSET_PB = "Project Brutality";
+
+//Item Use Key
+INVENTORY_NO_HEAL = "No appropriate healing item to use!";
+INVENTORY_NO_ITEM = "No inventory item to use!";
+INVENTORY_USE_ITEM = "Using last acquired item";
+INVENTORY_USE_HEAL = "Using";
+
+INVENTORY_NEVER = "Use on Pickup";
+INVENTORY_ALWAYS = "Send to Inventory";
+INVENTORY_RADSUIT_SPECIAL = "Send to Inventory when not in damaging sector";
+
+//key bindings
+INVENTORY_KEYBINDING = "Use Last Inventory Item";
+INVENTORY_KEYBINDING_DESC = "Use the last item added to your inventory";
+INVENTORY_HEAL_KEYBINDING = "Use Best Healing Item";
+INVENTORY_HEAL_KEYBINDING_DESC = "Use the best healing item in your inventory, based on your current health";

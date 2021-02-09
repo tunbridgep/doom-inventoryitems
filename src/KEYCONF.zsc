@@ -1,0 +1,8 @@
+//addkeysection "$INVENTORY_SETTINGS" SimpleInventoryItemsSection
+   //addmenukey "$INVENTORY_KEYBINDING" inventory_uselast
+   alias inventory_uselast "netevent SimpleInventoryUseLast"
+   defaultbind V inventory_uselast
+   
+   //addmenukey "$INVENTORY_HEAL_KEYBINDING" inventory_useheal
+   alias inventory_useheal "netevent SimpleInventoryUseHeal"
+   defaultbind B inventory_useheal 

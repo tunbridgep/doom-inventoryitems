@@ -1,0 +1,6 @@
+GameInfo
+{
+    AddEventHandlers = "SimpleInventoryItems"
+    AddEventHandlers = "UseLastHandler"
+    AddEventHandlers = "UseHealthHandler"
+}

@@ -1,0 +1,157 @@
+class SoulspherePickup : HealthPowerup
+{
+    Default
+    {
+        Inventory.Icon "SOULINV";
+    }
+    
+    States
+    {
+        Spawn:
+            TNT1 A 0 A_CheckSight("Spawn2");
+            SOUL AAABBBCCCDDDCCCBBB 2 Bright
+            {
+                invoker.SpawnAdditionalItem("BlueFlareMedium2",0,30);
+            }
+            Loop;
+        Spawn2:
+            SOUL ABCDCB 2 BRIGHT;
+            Goto Spawn;
+    }
+}
+
+class MegaspherePickup : HealthPowerup
+{
+    Default
+    {
+        Inventory.Icon "MEGAINV";
+    }
+    
+    States
+    {
+        Spawn:
+            TNT1 A 0 A_CheckSight("Spawn2");
+            MEGA AABBCCDD 2 BRIGHT
+            {
+                invoker.SpawnAdditionalItem("LensFlare",0,35);
+            }
+            Loop;
+        Spawn2:	
+            MEGA AABBCCDD 2 BRIGHT;
+            Goto Spawn;
+    }
+}
+
+class BlurspherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "BLURINV";
+    }
+    
+    States
+    {
+        Spawn:
+            PINS ABCD 6 Bright;
+            Loop;
+    }
+}
+
+class InvulnerabilitySpherePickup : HealthPowerup
+{
+    Default
+    {
+        Inventory.Icon "INVUINV";
+    }
+    
+    States
+    {
+        Spawn:
+            PINV AAABBBCCCDDD 2 Bright
+            {
+                invoker.SpawnAdditionalItem("GreenFlareMedium",0,35);
+            }
+            //PINV ABCD 6 Bright; // A_SpawnItem("GreenFlareMedium",0,35)
+            Loop;
+    }
+}
+
+class BerserkPickup : HealthPowerup
+{
+    Default
+    {
+        Inventory.Icon "BERSINV";
+    }
+    
+    States
+    {
+        Spawn:
+            PSTR A -1;
+            Stop;
+    }
+}
+
+class RadSuitPickup : PowerupCommon
+{
+    Default
+    {
+        PowerupCommon.SkinnedIcon "SUITINV", "PBSUTINV";
+    }
+       
+    States
+    {
+        Spawn:
+            SUIT A -1 Bright;
+            Stop;
+    }
+}
+
+class AllmapPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "MAPINV";
+    }
+    
+    States
+    {
+        Spawn:
+            PMAP ABCDCB 6 Bright;
+            Loop;
+    }
+}
+
+class InfraredPickup : PowerupCommon
+{
+    Default
+    {
+        PowerupCommon.SkinnedIcon "GOGGINV", "PBGOGINV";
+    }
+    
+    States
+    {
+        Spawn:
+            //PVIS A 6 Bright;
+            PVIS AAAAA 2 BRIGHT
+            {
+                invoker.SpawnAdditionalItem("RedFlareVerySmall",0,10);
+            } //A_SpawnItem("RedFlareVerySmall",0,10)
+            PVIS B 6;
+            Loop;
+    }
+}
+
+class BackpackPickup : PowerupCommon
+{
+    Default
+    {
+        PowerupCommon.SkinnedIcon "BKPKINV", "PBBPKINV";
+    }
+    
+    States
+    {
+        Spawn:
+            BPAK A -1;
+            Stop;
+    }
+}

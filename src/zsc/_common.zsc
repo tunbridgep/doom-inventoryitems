@@ -1,0 +1,137 @@
+class PowerupCommon : CustomInventory
+{
+    class<Inventory> ReplacementClass;
+    private SimpleInventoryItems handler;
+    private UseLastHandler lastHandler;
+    String FakePickupMessage;
+    int FakeRenderStyle; //this replaces our normal RenderStyle
+    int GiveAmount; //for powerups that give more than 1 per pickup (like Soulsphere), give that many when giving out the actual item
+    
+    //allow skinning
+    string Icon1;
+    string Icon2;
+    property SkinnedIcon: Icon1, Icon2;
+
+    Default
+    {
+        +INVENTORY.PERSISTENTPOWER;
+        +INVENTORY.INVBAR;
+        +INVENTORY.HUBPOWER;
+        Inventory.InterHubAmount 99;
+        Inventory.MaxAmount 99;
+        Inventory.Amount 1;
+        PowerupCommon.SkinnedIcon "", "";
+    }
+    
+    override void PostBeginPlay()
+    {
+        A_SetRenderStyle(Alpha, FakeRenderStyle);
+        super.PostBeginPlay();
+    }
+    
+    void UseRealItem()
+    {
+        handler.IgnoreNext = true;
+        owner.GiveInventory(ReplacementClass,GiveAmount);
+        lastHandler.RemoveItem(self);
+    }
+    
+    override String PickupMessage ()
+	{
+		return FakePickupMessage;
+	}
+	   
+    private void SetIcon()
+    {
+        if (Icon1 == "" || Icon2 == "")
+            return;
+    
+        TextureID iconID;
+    
+        switch (inventory_iconset)
+        {
+            case 0:
+               iconID = TexMan.CheckForTexture(Icon1,TexMan.TYPE_ANY,TexMan.DONTCREATE);
+               break;
+            case 1:
+                iconID = TexMan.CheckForTexture(Icon2,TexMan.TYPE_ANY,TexMan.DONTCREATE);
+                break;
+        }
+        if (iconID)
+            Icon = iconID;
+        else
+            Console.Printf("Failed to find icon for item "..self.GetTag());
+    }
+	
+	override void AttachToOwner(Actor other)
+    {
+        SetIcon();
+        super.AttachToOwner(other);
+        handler = SimpleInventoryItems(EventHandler.Find("SimpleInventoryItems"));
+        lastHandler = UseLastHandler(EventHandler.Find("UseLastHandler"));
+        lastHandler.AddItem(self);
+    }
+    
+    override bool HandlePickup(Inventory item)
+    {
+        let handled = super.HandlePickup(item);
+        
+        if (handled)
+        {
+            SetIcon();
+            lastHandler = UseLastHandler(EventHandler.Find("UseLastHandler"));
+            lastHandler.AddItem(self);
+        }
+        return handled;
+    }
+	
+	protected void SpawnAdditionalItem(String item, int x, int y)
+	{       
+        Class<Actor> cls = item;
+        if (cls)
+        {
+            A_SpawnItem(item,x,y);
+        }
+	}
+    
+    States
+    {
+        Spawn:
+            TNT1 A 0;
+            Stop;
+        Use:
+            TNT1 A 0
+            {
+                invoker.UseRealItem();
+            }
+            Stop;
+    }
+}
+
+class HealthPowerup : PowerupCommon
+{
+    private bool checked;
+    
+    //the first frame where we get an owner, check if we are able to be used
+    void CheckHealth(Actor other)
+    {
+        if (!checked)
+        {
+            if (other.health <= inventory_checkhealth_amount)
+                UseRealItem();
+            checked = true;
+        }
+    }
+    
+    override void AttachToOwner(Actor other)
+    {
+        CheckHealth(other);
+        super.AttachToOwner(other);
+    }
+    
+    override bool HandlePickup(Inventory item)
+    {
+        CheckHealth(owner);
+        return super.HandlePickup(item);
+    }
+}

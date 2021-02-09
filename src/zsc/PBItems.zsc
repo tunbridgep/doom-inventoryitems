@@ -1,0 +1,133 @@
+class MegaBerserkPickup : HealthPowerup
+{
+    Default
+    {
+        Inventory.Icon "MBERINV";
+    }
+    
+    States
+    {
+        Spawn:
+            MSTR A -1;
+            Stop;
+    }
+}
+
+/*
+class DemonRuneBaronPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "BARUINV";
+    }
+    
+    States
+    {
+        Spawn:
+            MSTR A -1;
+            Stop;
+    }
+}
+
+class DemonRuneRevenantPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "RERUINV";
+    }
+    
+    States
+    {
+        Spawn:
+            MSTR A -1;
+            Stop;
+    }
+}
+*/
+
+class CombatBackpackPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "CBPKINV";
+    }
+    
+    States
+    {
+        Spawn:
+            CMPK ABCDEFG 1;
+    		Loop;
+    }
+}
+
+class DoubleSpherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "DOUBINV";
+    }
+    
+    States
+    {
+        Spawn:
+            DDMG AAABBBCCCDDD 2 Bright
+            {
+                invoker.SpawnAdditionalItem("PurpleFlareMedium",0,30);
+            } // A_SpawnItem("PurpleFlareMedium",0,30);
+    		Loop;
+    }
+}
+
+/*
+//Note: I don't think this actually exists. I've never seen one
+class RageSpherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "RAGEINV";
+    }
+    
+    States
+    {
+        Spawn:
+            BLDS ABCDCB 6 Bright;
+    		Loop;
+    }
+}
+*/
+
+class HasteSpherePickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "HASTEINV";
+    }
+    
+    States
+    {
+        Spawn:
+            HAST AAABBBCCC 2
+            {
+                invoker.SpawnAdditionalItem("YellowFlareMedium",0,30);
+            } // A_SpawnItem("YellowFlareMedium",0,30);
+    		Loop;
+    }
+}
+
+/*
+//Note: I don't think this actually exists. I've never seen one
+class TimeSpherePickup : HealthPowerup
+{
+    Default
+    {
+        Inventory.Icon "TIMEINV";
+    }
+    
+    States
+    {
+        Spawn:
+            HAST AAABBBCCC 2;// A_SpawnItem("YellowFlareMedium",0,30);
+    		Loop;
+    }
+}
+*/
