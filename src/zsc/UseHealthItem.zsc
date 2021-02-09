@@ -9,6 +9,36 @@ struct HealthItemInfo
 
 class UseHealthHandler : EventHandler
 {
+    override void PlayerEntered(PlayerEvent e)
+    {      
+        if (gamestate == 7) //TITLEMAP
+            return;
+        
+        let player = players[e.PlayerNumber].mo;
+        
+        if (player.CheckInventory("AutoHealthUser",1))
+            return;
+        
+        player.GiveInventory("AutoHealthUser",1);
+    }
+    
+    override void NetworkProcess (ConsoleEvent e) 
+    {
+        if (e.isManual && e.Name == "SimpleInventoryUseHeal")
+        {
+            let player = players[e.Player].mo;
+            let item = AutoHealthUser(player.FindInventory("AutoHealthUser"));
+            
+            if (item)
+                item.UseBestHealingItem(item.owner);
+            else
+                Console.Printf("Could not find health user! Please report this as a bug!");
+        }
+    }
+}
+
+class AutoHealthUser : Inventory
+{
     const MAX_ARRAY_SIZE = 200;
 
     //This has to be a regular array because zscript doesn't allow dynamic arrays of structs
@@ -16,7 +46,7 @@ class UseHealthHandler : EventHandler
     private uint size;
     
     
-    override void OnRegister()
+    override void AttachToOwner(Actor other)
     {
         AddHealthItem("BerserkPickup",100,200,0,0);
         AddHealthItem("SoulspherePickup",100,200,0,0);
@@ -24,6 +54,7 @@ class UseHealthHandler : EventHandler
         AddHealthItem("MegaspherePickup",200,200,200,200);
         
         SortHealthItems();
+        super.AttachToOwner(other);
     }
     
     //walks through the array of items, finding the most appropriate item for what we need
@@ -75,28 +106,6 @@ class UseHealthHandler : EventHandler
         return re;
     }
     
-    override void NetworkProcess (ConsoleEvent e) 
-    {
-        if (e.isManual && e.Name == "SimpleInventoryUseHeal")
-        {
-            let player = players[e.Player].mo;
-        
-            let best = GetBestHealing(player);
-        
-            if (best != null)
-            {
-                String usemsg_prefix = Stringtable.Localize("$INVENTORY_USE_HEAL");
-                Console.Printf(usemsg_prefix.." "..best.GetTag().."...");
-                player.UseInventory(best);
-            }
-            else
-            {
-                String failmsg = Stringtable.Localize("$INVENTORY_NO_HEAL");
-                Console.Printf(failmsg);
-            }
-        }
-    }
-       
     //void AddHealthItem(String name, int healAmount, int maxHealAmount, int armorAmount, int armorMax)
     private void AddHealthItem(String name, int healAmount, int maxHealAmount, int armorAmount, int armorMax)
     {
@@ -173,5 +182,46 @@ class UseHealthHandler : EventHandler
                 return true;
         }
         return false;
+    }
+    
+    void UseBestHealingItem(bool scripted = false)
+    {
+        let best = GetBestHealing(owner);
+    
+        if (best != null)
+        {
+            String usemsg_prefix = Stringtable.Localize("$INVENTORY_USE_HEAL");
+            Console.Printf(usemsg_prefix.." "..best.GetTag().."...");
+            owner.UseInventory(best);
+        }
+        else if (!scripted) //don't display a fail message if we are trying to auto-use
+        {
+            String failmsg = Stringtable.Localize("$INVENTORY_NO_HEAL");
+            Console.Printf(failmsg);
+        }
+    }
+
+    /*
+    override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)
+    {
+        Console.Printf("About to be on "..owner.health - damage.." health!");
+        bool fatal = owner.health - damage < 1;
+    
+        if (inventory_auto_use_health && fatal)
+           UseBestHealingItem();
+        
+        return super.TakeSpecialDamage(inflictor,source,damage,damagetype);
+    }
+    */
+    override void ModifyDamage(int damage, Name damageType, out int newdamage, bool passive, Actor inflictor, Actor source, int flags)
+    {
+        if (passive)
+        {
+            bool fatal = owner.health - damage < 1;
+            //Console.Printf("About to be on "..owner.health - damage.." health!");
+            if (inventory_auto_use_health && fatal)
+                UseBestHealingItem(true);
+        }
+        super.ModifyDamage(damage,damageType,newdamage,passive,inflictor,source,flags);
     }
 }

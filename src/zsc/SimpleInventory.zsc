@@ -85,6 +85,13 @@ class SimpleInventoryItems : EventHandler
         replacement.SetTag(source.GetTag());
         replacement.ChangeTID(source.tid);
         
+        /*
+        HealthPickup healthSource = HealthPickup(source);
+        HealthPowerup healthPower = HealthPowerup(replacement);
+        if (healthSource && healthPower)
+            healthPower.AutoUseBehavior = healthSource.autousemode;
+        */
+        
         //replacement.Special = source.Special;
         
         //make sure our new item counts and our old one doesn't

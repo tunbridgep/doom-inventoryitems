@@ -8,6 +8,7 @@ server bool inventory_replace_infrared = true;
 server bool inventory_replace_allmap = false;
 server bool inventory_replace_backpack = false;
 server int inventory_iconset = 0; //0 = doom. 1 = PB.
+server bool inventory_auto_use_health = false;
 
 //PB stuff
 server bool inventory_replace_demonrune = true;

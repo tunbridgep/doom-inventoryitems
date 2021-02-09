@@ -1,5 +1,35 @@
 class UseLastHandler : EventHandler
 {
+    override void PlayerEntered(PlayerEvent e)
+    {      
+        if (gamestate == 7) //TITLEMAP
+            return;
+        
+        let player = players[e.PlayerNumber].mo;
+        
+        if (player.CheckInventory("LastItemUser",1))
+            return;
+        
+        player.GiveInventory("LastItemUser",1);
+    }
+
+    override void NetworkProcess (ConsoleEvent e) 
+    {
+        if (e.isManual && e.Name == "SimpleInventoryUseLast")
+        {
+            let player = players[e.Player].mo;
+            let item = LastItemUser(player.FindInventory("LastItemUser"));
+            
+            if (item)
+                item.UseLastItem();
+            else
+                Console.Printf("Could not find last item user! Please report this as a bug!");
+        }
+    }
+}
+
+class LastItemUser : Inventory
+{
     private Array<PowerupCommon> lastPickups;
     
     uint AddItem(PowerupCommon item)
@@ -32,24 +62,21 @@ class UseLastHandler : EventHandler
         }
         return last;
     }
-
-    override void NetworkProcess (ConsoleEvent e) 
+    
+    void UseLastItem()
     {
-        if (e.isManual && e.Name == "SimpleInventoryUseLast")
-        {
-            let last = GetLastItem();
+        let last = GetLastItem();
         
-            if (last != null)
-            {
-                String usemsg = Stringtable.Localize("$INVENTORY_USE_ITEM");
-                Console.Printf(usemsg.."...");
-                players[e.Player].mo.UseInventory(last);
-            }
-            else
-            {
-                String failmsg = Stringtable.Localize("$INVENTORY_NO_ITEM");
-                Console.Printf(failmsg);
-            }
+        if (last != null)
+        {
+            String usemsg = Stringtable.Localize("$INVENTORY_USE_ITEM");
+            Console.Printf(usemsg.."...");
+            owner.UseInventory(last);
+        }
+        else
+        {
+            String failmsg = Stringtable.Localize("$INVENTORY_NO_ITEM");
+            Console.Printf(failmsg);
         }
     }
 }
