@@ -54,11 +54,19 @@ class LastItemUser : Inventory
     
     private PowerupCommon GetLastItem()
     {
-        PowerupCommon last;
-        while (last == null && lastPickups.Size() > 0)
+        if (lastPickups.Size() == 0)
+            return null;
+        
+        PowerupCommon last = lastPickups[lastPickups.Size() - 1];
+        
+        while (last != null && owner.CountInv(last.GetClass()) == 0)
         {
-            last = lastPickups[lastPickups.Size() - 1];
-            //lastPickups.Pop();
+            lastPickups.Pop();
+            
+            if (lastPickups.Size() == 0)
+                return null;
+            else
+                last = lastPickups[lastPickups.Size() - 1];
         }
         return last;
     }
@@ -66,7 +74,7 @@ class LastItemUser : Inventory
     void UseLastItem()
     {
         let last = GetLastItem();
-        
+               
         if (last != null)
         {
             String usemsg = Stringtable.Localize("$INVENTORY_USE_ITEM");

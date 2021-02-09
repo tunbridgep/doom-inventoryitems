@@ -108,6 +108,32 @@ class PowerupCommon : CustomInventory
     }
 }
 
+class RadsuitReplacer : PowerupCommon
+{
+    //special case for replacing radiation suit
+    private bool ShouldInstantlyUseRadsuit()
+    {
+        SecSpecial spec;
+        owner.cursector.GetSpecial(spec);
+        return spec.DamageAmount > 0 && inventory_replace_radsuit > 1 && !owner.CheckInventory("PowerIronFeet",1);
+    }
+    
+    override void AttachToOwner(Actor other)
+    {
+        super.AttachToOwner(other);
+        if (ShouldInstantlyUseRadsuit())
+            owner.UseInventory(self);
+    }
+    
+    override bool HandlePickup(Inventory item)
+    {
+        bool handled = super.HandlePickup(item);
+        if (handled && ShouldInstantlyUseRadsuit())
+            owner.UseInventory(self);
+        return handled;
+    }
+}
+
 class HealthPowerup : PowerupCommon
 {   
     //the first frame where we get an owner, check if we are able to be used
@@ -128,7 +154,6 @@ class HealthPowerup : PowerupCommon
         bool handled = super.HandlePickup(item);
         if (handled)
             CheckHealth();
-        return handled;
-        
+        return handled; 
     }
 }
