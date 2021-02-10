@@ -84,21 +84,14 @@ class SimpleInventoryItems : EventHandler
         
         replacement.SetTag(source.GetTag());
         replacement.ChangeTID(source.tid);
-        
-        /*
-        HealthPickup healthSource = HealthPickup(source);
-        HealthPowerup healthPower = HealthPowerup(replacement);
-        if (healthSource && healthPower)
-            healthPower.AutoUseBehavior = healthSource.autousemode;
-        */
-        
+             
         //replacement.Special = source.Special;
+        //source.Special = null;
         
         //make sure our new item counts and our old one doesn't
         replacement.bCOUNTITEM = source.bCOUNTITEM;
         source.bCOUNTITEM = false;
         
-        //source.Special = null;
         source.Deactivate(replacement);
         source.Destroy();
     }
@@ -114,7 +107,7 @@ class SimpleInventoryItems : EventHandler
         }
         return false;
     }
-       
+    
     override void WorldThingSpawned(WorldEvent e)
     {   
         Inventory a = Inventory(e.Thing);

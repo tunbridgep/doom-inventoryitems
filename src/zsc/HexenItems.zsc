@@ -1,0 +1,259 @@
+//This is much easier than in Doom, because virtually nothing is ever going to touch/replace these items,
+//and there are no mods. So we can basically just replace them the old fashioned way
+
+class PuzzleItemReplacer : PuzzleItem
+{
+    //This is mainly here for ease of item creation
+    meta String spawnSpriteString;
+    Property SpawnSprite: spawnSpriteString;
+       
+    override void postBeginPlay()
+    {
+        sprite = getspriteindex(spawnSpriteString);
+        super.postbeginplay();
+    }
+    
+    //This is needed to not have invisible items when dropping
+    override Inventory CreateTossable (int amt)
+	{
+        sprite = getspriteindex(spawnSpriteString);
+		return super.CreateTossable(amt);
+	}
+    
+    //This has to be done here, rather than being dynamic
+    //because otherwise the inventory UI completely breaks.
+    //But there's nothing stopping the player dropping the item and picking it up again
+    /* override void DoEffect() */
+    override void AttachToOwner(Actor other)
+    {
+        if (inventory_hide_puzzle_items)
+            bINVBAR = false;
+        else
+            bINVBAR = true;
+        super.AttachToOwner(other);
+    }
+    
+    States
+    {
+        Spawn:
+            TNT1 A 0;
+            #### A -1;
+            Stop;
+    }
+}
+
+class PuzzleItemReplacerGear : PuzzleItemReplacer
+{
+    States
+    {
+        Spawn:
+            TNT1 A 0;
+        Spawn2:
+            #### ABCDEFGH 4 Bright;
+            Goto Spawn2;
+    }
+}
+
+class PuzzBook1R : PuzzleItemReplacer replaces PuzzBook1
+{
+    Default
+    {
+        PuzzleItem.Number 7;
+        Inventory.Icon "ARTIBOK1";
+        Inventory.PickupMessage "$TXT_ARTIPUZZBOOK1";
+        Tag "$TAG_ARTIPUZZBOOK1";
+        PuzzleItemReplacer.SpawnSprite "ABK1";
+    }
+}
+
+class PuzzBook2R : PuzzleItemReplacer replaces PuzzBook2
+{
+    Default
+    {
+        PuzzleItem.Number 8;
+        Inventory.Icon "ARTIBOK2";
+        Inventory.PickupMessage "$TXT_ARTIPUZZBOOK2";
+        Tag "$TAG_ARTIPUZZBOOK2";
+        PuzzleItemReplacer.SpawnSprite "ABK2";
+    }
+}
+
+class PuzzCWeaponR : PuzzleItemReplacer replaces PuzzCWeapon
+{
+    Default
+    {
+        PuzzleItem.Number 11;
+        Inventory.Icon "ARTICWEP";
+        Inventory.PickupMessage "$TXT_ARTIPUZZCWEAPON";
+        Tag "$TAG_ARTIPUZZCWEAPON";
+        PuzzleItemReplacer.SpawnSprite "ACWP";
+    }
+}
+
+class PuzzFWeaponR : PuzzleItemReplacer replaces PuzzFWeapon
+{
+    Default
+    {
+        PuzzleItem.Number 10;
+        Inventory.Icon "ARTIFWEP";
+        Inventory.PickupMessage "$TXT_ARTIPUZZFWEAPON";
+        Tag "$TAG_ARTIPUZZFWEAPON";
+        PuzzleItemReplacer.SpawnSprite "AFWP";
+    }
+}
+
+class PuzzMWeaponR : PuzzleItemReplacer replaces PuzzMWeapon
+{
+    Default
+    {
+        PuzzleItem.Number 12;
+        Inventory.Icon "ARTIMWEP";
+        Inventory.PickupMessage "$TXT_ARTIPUZZMWEAPON";
+        Tag "$TAG_ARTIPUZZMWEAPON";
+        PuzzleItemReplacer.SpawnSprite "AMWP";
+    }
+}
+
+class PuzzSkullR : PuzzleItemReplacer replaces PuzzSkull
+{
+    Default
+    {
+        PuzzleItem.Number 0;
+        Inventory.Icon "ARTISKLL";
+        Inventory.PickupMessage "$TXT_ARTIPUZZSKULL";
+        Tag "$TAG_ARTIPUZZSKULL";
+        PuzzleItemReplacer.SpawnSprite "ASKU";
+    }
+}
+
+class PuzzFlameMaskR : PuzzleItemReplacer replaces PuzzFlameMask
+{
+    Default
+    {
+        PuzzleItem.Number 9;
+        Inventory.Icon "ARTISKL2";
+        Inventory.PickupMessage "$TXT_ARTIPUZZSKULL2";
+        Tag "$TAG_ARTIPUZZSKULL2";
+        PuzzleItemReplacer.SpawnSprite "ASK2";
+    }
+}
+
+class PuzzGemBigR : PuzzleItemReplacer replaces PuzzGemBig
+{
+    Default
+    {
+        PuzzleItem.Number 1;
+        Inventory.Icon "ARTIBGEM";
+        Inventory.PickupMessage "$TXT_ARTIPUZZGEMBIG";
+        Tag "$TAG_ARTIPUZZGEMBIG";
+        PuzzleItemReplacer.SpawnSprite "ABGM";
+    }
+}
+
+class PuzzGemBlue1R : PuzzleItemReplacer replaces PuzzGemBlue1
+{
+    Default
+    {
+        PuzzleItem.Number 5;
+        Inventory.Icon "ARTIGEMB";
+        Inventory.PickupMessage "$TXT_ARTIPUZZGEMBLUE1";
+        Tag "$TAG_ARTIPUZZGEMBLUE1";
+        PuzzleItemReplacer.SpawnSprite "AGMB";
+    }
+}
+
+class PuzzGemBlue2R : PuzzleItemReplacer replaces PuzzGemBlue2
+{
+    Default
+    {
+        PuzzleItem.Number 6;
+        Inventory.Icon "ARTIGMB2";
+        Inventory.PickupMessage "$TXT_ARTIPUZZGEMBLUE2";
+        Tag "$TAG_ARTIPUZZGEMBLUE2";
+        PuzzleItemReplacer.SpawnSprite "AGB2";
+    }
+}
+
+class PuzzGemGreen1R : PuzzleItemReplacer replaces PuzzGemGreen1
+{
+    Default
+    {
+        PuzzleItem.Number 3;
+        Inventory.Icon "ARTIGEMG";
+        Inventory.PickupMessage "$TXT_ARTIPUZZGEMGREEN1";
+        Tag "$TAG_ARTIPUZZGEMGREEN1";
+        PuzzleItemReplacer.SpawnSprite "AGMG";
+    }
+}
+
+class PuzzGemGreen2R : PuzzleItemReplacer replaces PuzzGemGreen2
+{
+    Default
+    {
+        PuzzleItem.Number 4;
+        Inventory.Icon "ARTIGEMG";
+        Inventory.PickupMessage "$TXT_ARTIPUZZGEMGREEN2";
+        Tag "$TAG_ARTIPUZZGEMGREEN2";
+        PuzzleItemReplacer.SpawnSprite "AGG2";
+    }
+}
+
+class PuzzGemRedR : PuzzleItemReplacer replaces PuzzGemRed
+{
+    Default
+    {
+        PuzzleItem.Number 2;
+        Inventory.Icon "ARTIGEMR";
+        Inventory.PickupMessage "$TXT_ARTIPUZZGEMRED";
+        Tag "$TAG_ARTIPUZZGEMRED";
+        PuzzleItemReplacer.SpawnSprite "AGMR";
+    }
+}
+
+class PuzzGear1R : PuzzleItemReplacerGear replaces PuzzGear1
+{
+    Default
+    {
+        PuzzleItem.Number 13;
+        Inventory.Icon "ARTIGEAR";
+        Inventory.PickupMessage "$TXT_ARTIPUZZGEAR";
+        Tag "$TAG_ARTIPUZZGEAR1";
+        PuzzleItemReplacer.SpawnSprite "AGER";
+    }
+}
+
+class PuzzGear2R : PuzzleItemReplacerGear replaces PuzzGear2
+{
+    Default
+    {
+        PuzzleItem.Number 14;
+        Inventory.Icon "ARTIGER2";
+        Inventory.PickupMessage "$TXT_ARTIPUZZGEAR";
+        Tag "$TAG_ARTIPUZZGEAR2";
+        PuzzleItemReplacer.SpawnSprite "AGR2";
+    }
+}
+
+class PuzzGear3R : PuzzleItemReplacerGear replaces PuzzGear3
+{
+    Default
+    {
+        PuzzleItem.Number 15;
+        Inventory.Icon "ARTIGER3";
+        Inventory.PickupMessage "$TXT_ARTIPUZZGEAR";
+        Tag "$TAG_ARTIPUZZGEAR3";
+        PuzzleItemReplacer.SpawnSprite "AGR3";
+    }
+}
+
+class PuzzGear4R : PuzzleItemReplacerGear replaces PuzzGear4
+{
+    Default
+    {
+        PuzzleItem.Number 16;
+        Inventory.Icon "ARTIGER4";
+        Inventory.PickupMessage "$TXT_ARTIPUZZGEAR";
+        Tag "$TAG_ARTIPUZZGEAR4";
+        PuzzleItemReplacer.SpawnSprite "AGR4";
+    }
+}

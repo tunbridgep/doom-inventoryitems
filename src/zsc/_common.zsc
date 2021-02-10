@@ -39,7 +39,7 @@ class PowerupCommon : CustomInventory
         
         super.PostBeginPlay();
     }
-    
+       
     void UseRealItem()
     {
         SimpleInventoryItems handler = SimpleInventoryItems(EventHandler.Find("SimpleInventoryItems"));

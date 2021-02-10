@@ -22,3 +22,4 @@ server int inventory_checkhealth_amount = 0;
 
 //misc
 server bool inventory_debug = false;
+server bool inventory_hide_puzzle_items = false;
