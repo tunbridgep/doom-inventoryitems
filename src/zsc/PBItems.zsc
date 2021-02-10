@@ -13,43 +13,47 @@ class MegaBerserkPickup : HealthPowerup
     }
 }
 
-/*
-class DemonRuneBaronPickup : PowerupCommon
-{
-    Default
-    {
-        Inventory.Icon "BARUINV";
-    }
-    
-    States
-    {
-        Spawn:
-            MSTR A -1;
-            Stop;
-    }
-}
-
 class DemonRuneRevenantPickup : PowerupCommon
 {
     Default
     {
-        Inventory.Icon "RERUINV";
+        Inventory.Icon "DRUNINV";
     }
     
     States
     {
         Spawn:
-            MSTR A -1;
-            Stop;
+            D4RF ABCDEFGHIJKLLKJIHGFEDCBA 2 Bright
+            {
+                invoker.SpawnAdditionalItem("RedFlareMedium",0,20);
+            } //A_SpawnItem("RedFlareMedium",0,20);
+            Loop;
     }
 }
-*/
+
+class DemonRuneBaronPickup : PowerupCommon
+{
+    Default
+    {
+        Inventory.Icon "BRUNINV";
+    }
+    
+    States
+    {
+        Spawn:
+            D5RF ABCDEFGHIJKLLKJIHGFEDCBA 2 Bright
+            {
+                invoker.SpawnAdditionalItem("GreenFlareMedium",0,20);
+            } //A_SpawnItem("GreenFlareMedium",0,20);
+            Loop;
+    }
+}
 
 class CombatBackpackPickup : PowerupCommon
 {
     Default
     {
-        Inventory.Icon "CBPKINV";
+        Inventory.Icon "CMPKINV";
     }
     
     States

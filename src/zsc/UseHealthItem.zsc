@@ -184,35 +184,37 @@ class AutoHealthUser : Inventory
         return false;
     }
     
-    void UseBestHealingItem(bool scripted = false)
+    //if we are about to die, and have no healing items, use invulnerability instead
+    bool UseInvulnerability()
+    {
+        let invuln = owner.FindInventory("InvulnerabilitySpherePickup",true);
+        if (invuln)
+        {
+            owner.UseInventory(invuln);
+            return true;
+        }
+        return false;
+    }
+    
+    bool UseBestHealingItem(bool scripted = false)
     {
         let best = GetBestHealing(owner);
-    
+           
         if (best != null)
         {
             String usemsg_prefix = Stringtable.Localize("$INVENTORY_USE_HEAL");
             Console.Printf(usemsg_prefix.." "..best.GetTag().."...");
             owner.UseInventory(best);
+            return true;
         }
         else if (!scripted) //don't display a fail message if we are trying to auto-use
         {
             String failmsg = Stringtable.Localize("$INVENTORY_NO_HEAL");
             Console.Printf(failmsg);
         }
+        return false;
     }
 
-    /*
-    override int TakeSpecialDamage(Actor inflictor, Actor source, int damage, Name damagetype)
-    {
-        Console.Printf("About to be on "..owner.health - damage.." health!");
-        bool fatal = owner.health - damage < 1;
-    
-        if (inventory_auto_use_health && fatal)
-           UseBestHealingItem();
-        
-        return super.TakeSpecialDamage(inflictor,source,damage,damagetype);
-    }
-    */
     override void ModifyDamage(int damage, Name damageType, out int newdamage, bool passive, Actor inflictor, Actor source, int flags)
     {
         if (passive)
@@ -220,7 +222,8 @@ class AutoHealthUser : Inventory
             bool fatal = owner.health - damage < 1;
             //Console.Printf("About to be on "..owner.health - damage.." health!");
             if (inventory_auto_use_health && fatal)
-                UseBestHealingItem(true);
+                if (!UseBestHealingItem(true))
+                    UseInvulnerability();
         }
         super.ModifyDamage(damage,damageType,newdamage,passive,inflictor,source,flags);
     }

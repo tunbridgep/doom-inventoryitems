@@ -11,11 +11,11 @@ server int inventory_iconset = 0; //0 = doom. 1 = PB.
 server bool inventory_auto_use_health = false;
 
 //PB stuff
-server bool inventory_replace_demonrune = true;
+server bool inventory_replace_demonrune = false;
 server bool inventory_replace_doublesphere = true;
-server bool inventory_replace_ragesphere = true;
+//server bool inventory_replace_ragesphere = true;
 server bool inventory_replace_hastesphere = true;
-server bool inventory_replace_timesphere = true;
+//server bool inventory_replace_timesphere = true;
 
 //server bool inventory_radsuit_checkfloor = true;
 server int inventory_checkhealth_amount = 0;

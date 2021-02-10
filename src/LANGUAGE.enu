@@ -10,8 +10,10 @@ INVENTORY_BERSERK = "Berserk";
 INVENTORY_RADSUIT = "Radiation Suit";
 INVENTORY_INFRARED = "Infrared Goggles";
 INVENTORY_ALLMAP = "Full Map";
+INVENTORY_BACKPACK = "Backpack";
 INVENTORY_DOUBLESPHERE = "Double Sphere";
 INVENTORY_HASTESPHERE = "Haste Sphere";
+INVENTORY_DEMONRUNE = "Revenant/Baron Runes";
 
 //Headings, Menus etc
 INVENTORY_PB = "Project Brutality Specific Items";

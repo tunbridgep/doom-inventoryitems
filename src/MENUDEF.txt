@@ -28,12 +28,15 @@ OptionMenu "SimpleInventoryBase"
     Option "$INVENTORY_RADSUIT", "inventory_replace_radsuit", RadsuitOptions
     Option "$INVENTORY_INFRARED", "inventory_replace_infrared", InventoryOptions
     Option "$INVENTORY_ALLMAP", "inventory_replace_allmap", InventoryOptions
+    Option "$INVENTORY_BACKPACK", "inventory_replace_backpack", InventoryOptions
     StaticText ""
     Option "$INVENTORY_ICONSET", "inventory_iconset", IconSetOptions
     StaticText "$INVENTORY_ICONSET_DESC"
     StaticText ""
     StaticText "$INVENTORY_PB"
     Option "$INVENTORY_DOUBLESPHERE", "inventory_replace_doublesphere", InventoryOptions
+    Option "$INVENTORY_HASTESPHERE", "inventory_replace_hastesphere", InventoryOptions
+    Option "$INVENTORY_DEMONRUNE", "inventory_replace_demonrune", InventoryOptions
     StaticText ""
     Slider "$INVENTORY_HEALTH_AMOUNT", "inventory_checkhealth_amount", 0,100,1,0
     StaticText "$INVENTORY_HEALTH_AMOUNT_DESC"
