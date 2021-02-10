@@ -202,7 +202,7 @@ class AutoHealthUser : Inventory
            
         if (best != null)
         {
-            String usemsg_prefix = Stringtable.Localize("$INVENTORY_USE_HEAL");
+            String usemsg_prefix = Stringtable.Localize("$INVENTORY_USING");
             Console.Printf(usemsg_prefix.." "..best.GetTag().."...");
             owner.UseInventory(best);
             return true;

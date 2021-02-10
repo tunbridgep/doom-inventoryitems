@@ -77,8 +77,8 @@ class LastItemUser : Inventory
                
         if (last != null)
         {
-            String usemsg = Stringtable.Localize("$INVENTORY_USE_ITEM");
-            Console.Printf(usemsg.."...");
+            String usemsg_prefix = Stringtable.Localize("$INVENTORY_USING");
+            Console.Printf(usemsg_prefix.." "..last.GetTag().."...");
             owner.UseInventory(last);
         }
         else

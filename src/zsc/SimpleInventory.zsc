@@ -124,35 +124,33 @@ class SimpleInventoryItems : EventHandler
             
         //Console.printf("Spawned "..a.GetTag());
         
-        //else if (a is berserk && inventory_replace_berserk)  { a.bINVBAR = true; a.bAUTOACTIVATE = false; }
+        //else if (a is berserk)  { a.bINVBAR = true; a.bAUTOACTIVATE = false; }
         
-        if (a is soulsphere && inventory_replace_soulsphere) ReplaceCompletely(a,"SoulspherePickup");
-        else if (a is megasphere && inventory_replace_megasphere) ReplaceCompletely(a,"MegaspherePickup");
-        else if (a is blursphere && inventory_replace_blursphere) ReplaceCompletely(a,"BlurspherePickup");
-        else if (a is invulnsphere && inventory_replace_invulnsphere) ReplaceCompletely(a,"InvulnerabilitySpherePickup");
-        else if (a is berserk && inventory_replace_berserk) ReplaceCompletely(a,"BerserkPickup");
+        if (a is soulsphere) ReplaceCompletely(a,"SoulspherePickup");
+        else if (a is megasphere) ReplaceCompletely(a,"MegaspherePickup");
+        else if (a is blursphere) ReplaceCompletely(a,"BlurspherePickup");
+        else if (a is invulnsphere) ReplaceCompletely(a,"InvulnerabilitySpherePickup");
+        else if (a is berserk) ReplaceCompletely(a,"BerserkPickup");
         
-        else if (a is radsuit && inventory_replace_radsuit > 0) ReplaceCompletely(a,"RadsuitPickup");
-        else if (a is backpack && inventory_replace_backpack) ReplaceCompletely(a,"BackpackPickup");
-        else if (a is allmap && inventory_replace_allmap) ReplaceCompletely(a,"AllmapPickup");
-        else if (a is infrared && inventory_replace_infrared) ReplaceCompletely(a,"InfraredPickup");
+        else if (a is radsuit) ReplaceCompletely(a,"RadsuitPickup");
+        else if (a is backpack) ReplaceCompletely(a,"BackpackPickup");
+        else if (a is allmap) ReplaceCompletely(a,"AllmapPickup");
+        else if (a is infrared) ReplaceCompletely(a,"InfraredPickup");
         
         //PB Items
-        else if (isClass(a,"NormalBerserk") && inventory_replace_berserk) ReplaceCompletely(a,"BerserkPickup");
-        else if (isClass(a,"NewAllmap") && inventory_replace_berserk) ReplaceCompletely(a,"AllmapPickup");
-        else if (isClass(a,"MegaBerserk") && inventory_replace_berserk) ReplaceCompletely(a,"MegaBerserkPickup");
-        else if (isClass(a,"NewBlurSphere") && inventory_replace_blursphere) ReplaceCompletely(a,"BlurspherePickup");
-        else if (isClass(a,"DoubleSphere") && inventory_replace_doublesphere) ReplaceCompletely(a,"DoubleSpherePickup");
-        //else if (isClass(a,"RageSphere") && inventory_replace_ragesphere) ReplaceCompletely(a,"RageSpherePickup");
-        else if (isClass(a,"HasteSphere") && inventory_replace_hastesphere) ReplaceCompletely(a,"HasteSpherePickup");
-        //else if (isClass(a,"TimeSphere") && inventory_replace_timesphere) ReplaceCompletely(a,"TimeSpherePickup");
+        else if (isClass(a,"NormalBerserk")) ReplaceCompletely(a,"BerserkPickup");
+        else if (isClass(a,"NewAllmap")) ReplaceCompletely(a,"AllmapPickup");
+        else if (isClass(a,"MegaBerserk")) ReplaceCompletely(a,"MegaBerserkPickup");
+        else if (isClass(a,"NewBlurSphere")) ReplaceCompletely(a,"BlurspherePickup");
+        else if (isClass(a,"DoubleSphere")) ReplaceCompletely(a,"DoubleSpherePickup");
+        //else if (isClass(a,"RageSphere")) ReplaceCompletely(a,"RageSpherePickup");
+        else if (isClass(a,"HasteSphere")) ReplaceCompletely(a,"HasteSpherePickup");
+        //else if (isClass(a,"TimeSphere")) ReplaceCompletely(a,"TimeSpherePickup");
         
-        //These don't work properly
-        else if (isClass(a,"PB_Backpack") && inventory_replace_backpack) ReplaceCompletely(a,"BackpackPickup");
-        else if (isClass(a,"PB_HeavyBackpack") && inventory_replace_backpack) ReplaceCompletely(a,"CombatBackpackPickup");
-        //else if (isClass(a,"RegularBackPack") && inventory_replace_backpack) ReplaceCompletely(a,"BackpackPickup");
+        else if (isClass(a,"PB_Backpack")) ReplaceCompletely(a,"BackpackPickup");
+        else if (isClass(a,"PB_HeavyBackpack")) ReplaceCompletely(a,"CombatBackpackPickup");
         
-        else if (isClass(a,"DemonRuneBaron") && inventory_replace_demonrune) ReplaceCompletely(a,"DemonRuneBaronPickup");
-        else if (isClass(a,"DemonRuneRevenant") && inventory_replace_demonrune) ReplaceCompletely(a,"DemonRuneRevenantPickup");
+        else if (isClass(a,"DemonRuneBaron")) ReplaceCompletely(a,"DemonRuneBaronPickup");
+        else if (isClass(a,"DemonRuneRevenant")) ReplaceCompletely(a,"DemonRuneRevenantPickup");
     }
 }

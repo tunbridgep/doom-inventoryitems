@@ -10,6 +10,12 @@ class PowerupCommon : CustomInventory
     string Icon2;
     property SkinnedIcon: Icon1, Icon2;
     
+    meta string ccmd;
+    property ConsoleVariable: ccmd;
+    
+    //holds whether or not we have been added to the last item list
+    bool onList;
+    
     LastItemUser lastItem;
 
     Default
@@ -21,11 +27,16 @@ class PowerupCommon : CustomInventory
         Inventory.MaxAmount 99;
         Inventory.Amount 1;
         PowerupCommon.SkinnedIcon "", "";
+        PowerupCommon.ConsoleVariable "";
     }
     
     override void PostBeginPlay()
     {
         A_SetRenderStyle(Alpha, FakeRenderStyle);
+        
+        if (CVar.GetCVar(ccmd) == null && inventory_debug)
+            Console.Printf("Inventory item "..self.GetTag().." has no cvar set or cvar is incorrect (cvar is "..ccmd.."), and will always be used instantly");
+        
         super.PostBeginPlay();
     }
     
@@ -34,7 +45,8 @@ class PowerupCommon : CustomInventory
         SimpleInventoryItems handler = SimpleInventoryItems(EventHandler.Find("SimpleInventoryItems"));
         handler.IgnoreNext = true;
         owner.GiveInventory(ReplacementClass,GiveAmount);
-        lastItem.RemoveItem(self);
+        if (onList)
+            lastItem.RemoveItem(self);
     }
     
     override String PickupMessage ()
@@ -64,27 +76,41 @@ class PowerupCommon : CustomInventory
             Console.Printf("Failed to find icon for item "..self.GetTag());
     }
 	
+	protected virtual bool GetAutoUse()
+	{
+        let v = CVar.GetCVar(ccmd);
+        return v == null || v.GetBool() == false;  
+	}
+	
 	override void AttachToOwner(Actor other)
     {
-        SetIcon();
         super.AttachToOwner(other);
-        
-        lastItem = LastItemUser(other.FindInventory("LastItemUser"));
-        lastItem.AddItem(self);
+        if (GetAutoUse())
+            owner.UseInventory(self);
+        else
+        {
+            SetIcon();
+            lastItem = LastItemUser(other.FindInventory("LastItemUser"));
+            lastItem.AddItem(self);
+            onList = true;
+        }
     }
-    
+        
     override bool HandlePickup(Inventory item)
     {
         let handled = super.HandlePickup(item);
-        
         if (handled)
         {
-            SetIcon();
             lastItem.AddItem(self);
+            if (GetAutoUse())
+                owner.UseInventory(self);
         }
         return handled;
     }
 	
+	//Used for spawning flares/etc in mods like Brutal Doom, but the game will error out
+	//if we try to use a mod where they don't exist (like vanilla), so this does a runtime check
+	//instead of a compile time one, and if they exist, spawns them
 	protected void SpawnAdditionalItem(String item, int x, int y)
 	{       
         Class<Actor> cls = item;
@@ -110,50 +136,29 @@ class PowerupCommon : CustomInventory
 
 class RadsuitReplacer : PowerupCommon
 {
-    //special case for replacing radiation suit
+    override bool GetAutoUse()
+    {
+        return super.GetAutoUse() || ShouldInstantlyUseRadsuit();
+    }
+
     private bool ShouldInstantlyUseRadsuit()
     {
         SecSpecial spec;
         owner.cursector.GetSpecial(spec);
         return spec.DamageAmount > 0 && inventory_replace_radsuit > 1 && !owner.CheckInventory("PowerIronFeet",1);
     }
-    
-    override void AttachToOwner(Actor other)
-    {
-        super.AttachToOwner(other);
-        if (ShouldInstantlyUseRadsuit())
-            owner.UseInventory(self);
-    }
-    
-    override bool HandlePickup(Inventory item)
-    {
-        bool handled = super.HandlePickup(item);
-        if (handled && ShouldInstantlyUseRadsuit())
-            owner.UseInventory(self);
-        return handled;
-    }
 }
 
 class HealthPowerup : PowerupCommon
 {   
-    //the first frame where we get an owner, check if we are able to be used
-    void CheckHealth()
+    //if our health is below the threshold, autouse
+    private bool CheckHealth()
     {
-        if (owner.health <= inventory_checkhealth_amount)
-            owner.UseInventory(self);
-    }
-       
-    override void AttachToOwner(Actor other)
-    {
-        super.AttachToOwner(other);
-        CheckHealth();
+        return owner.health <= inventory_checkhealth_amount;
     }
     
-    override bool HandlePickup(Inventory item)
+    override bool GetAutoUse()
     {
-        bool handled = super.HandlePickup(item);
-        if (handled)
-            CheckHealth();
-        return handled; 
+        return super.GetAutoUse() || CheckHealth();
     }
 }

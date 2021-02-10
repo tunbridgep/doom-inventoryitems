@@ -3,6 +3,7 @@ class SoulspherePickup : HealthPowerup
     Default
     {
         Inventory.Icon "SOULINV";
+        PowerupCommon.ConsoleVariable "inventory_replace_soulsphere";
     }
     
     States
@@ -25,6 +26,7 @@ class MegaspherePickup : HealthPowerup
     Default
     {
         Inventory.Icon "MEGAINV";
+        PowerupCommon.ConsoleVariable "inventory_replace_megasphere";
     }
     
     States
@@ -47,6 +49,7 @@ class BlurspherePickup : PowerupCommon
     Default
     {
         Inventory.Icon "BLURINV";
+        PowerupCommon.ConsoleVariable "inventory_replace_blursphere";
     }
     
     States
@@ -62,6 +65,7 @@ class InvulnerabilitySpherePickup : HealthPowerup
     Default
     {
         Inventory.Icon "INVUINV";
+        PowerupCommon.ConsoleVariable "inventory_replace_invulnsphere";
     }
     
     States
@@ -81,6 +85,7 @@ class BerserkPickup : HealthPowerup
     Default
     {
         Inventory.Icon "BERSINV";
+        PowerupCommon.ConsoleVariable "inventory_replace_berserk";
     }
     
     States
@@ -96,6 +101,7 @@ class RadSuitPickup : RadsuitReplacer
     Default
     {
         PowerupCommon.SkinnedIcon "SUITINV", "PBSUTINV";
+        PowerupCommon.ConsoleVariable "inventory_replace_radsuit";
     }
        
     States
@@ -111,6 +117,7 @@ class AllmapPickup : PowerupCommon
     Default
     {
         Inventory.Icon "MAPINV";
+        PowerupCommon.ConsoleVariable "inventory_replace_allmap";
     }
     
     States
@@ -126,6 +133,7 @@ class InfraredPickup : PowerupCommon
     Default
     {
         PowerupCommon.SkinnedIcon "GOGGINV", "PBGOGINV";
+        PowerupCommon.ConsoleVariable "inventory_replace_infrared";
     }
     
     States
@@ -146,6 +154,7 @@ class BackpackPickup : PowerupCommon
     Default
     {
         PowerupCommon.SkinnedIcon "BKPKINV", "PBBPKINV";
+        PowerupCommon.ConsoleVariable "inventory_replace_backpack";
     }
     
     States

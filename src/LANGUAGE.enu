@@ -29,8 +29,7 @@ INVENTORY_ICONSET_PB = "Project Brutality";
 //Item Use Key
 INVENTORY_NO_HEAL = "No appropriate healing item to use!";
 INVENTORY_NO_ITEM = "No inventory item to use!";
-INVENTORY_USE_ITEM = "Using last acquired item";
-INVENTORY_USE_HEAL = "Using";
+INVENTORY_USING = "Using";
 
 INVENTORY_NEVER = "Use on Pickup";
 INVENTORY_ALWAYS = "Send to Inventory";
