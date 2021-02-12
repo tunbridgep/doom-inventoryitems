@@ -52,6 +52,13 @@ class SimpleInventoryItems : EventHandler
             return;
         }
         
+        if (!source.InStateSequence(source.CurState, source.SpawnState))
+        {
+            if (inventory_debug)
+                console.printf(source.GetTag().." is not in spawn state....not replacing!");
+            return;
+        }
+        
         PowerupCommon replacement = PowerupCommon(Actor.Spawn(replacement_class,source.pos));
         
         if (!replacement)

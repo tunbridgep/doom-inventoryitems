@@ -33,11 +33,16 @@ OptionMenu "SimpleInventoryBase"
     Option "$INVENTORY_ICONSET", "inventory_iconset", IconSetOptions
     StaticText "$INVENTORY_ICONSET_DESC"
     StaticText ""
-    StaticText "$INVENTORY_PB"
+    StaticText "$INVENTORY_PB", Red
     Option "$INVENTORY_DOUBLESPHERE", "inventory_replace_doublesphere", InventoryOptions
     Option "$INVENTORY_HASTESPHERE", "inventory_replace_hastesphere", InventoryOptions
     Option "$INVENTORY_DEMONRUNE", "inventory_replace_demonrune", InventoryOptions
     StaticText ""
+    StaticText "$INVENTORY_HEXEN", Red
+    Option "$INVENTORY_PUZZLE_ITEMS", "inventory_hide_puzzle_items", YesNo
+    StaticText "$INVENTORY_PUZZLE_ITEMS_DESC"
+    StaticText ""
+    StaticText "$INVENTORY_MISC", Red
     Slider "$INVENTORY_HEALTH_AMOUNT", "inventory_checkhealth_amount", 0,100,1,0
     StaticText "$INVENTORY_HEALTH_AMOUNT_DESC"
     StaticText ""

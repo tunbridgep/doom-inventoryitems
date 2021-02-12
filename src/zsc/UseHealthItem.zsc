@@ -53,6 +53,11 @@ class AutoHealthUser : Inventory
         AddHealthItem("MegaBerserkPickup",200,200,0,0);
         AddHealthItem("MegaspherePickup",200,200,200,200);
         
+        //Heretic/Hexen Stuff
+        AddHealthItem("ArtiHealth",25,100,0,0);
+        AddHealthItem("ArtiSuperHealth",100,100,0,0);
+        AddHealthItem("ArtiHealingRadius",50,100,0,0);
+        
         SortHealthItems();
         super.AttachToOwner(other);
     }

@@ -40,3 +40,9 @@ INVENTORY_KEYBINDING = "Use Last Inventory Item";
 INVENTORY_KEYBINDING_DESC = "Use the last item added to your inventory";
 INVENTORY_HEAL_KEYBINDING = "Use Best Healing Item";
 INVENTORY_HEAL_KEYBINDING_DESC = "Use the best healing item in your inventory, based on your current health";
+
+//Misc
+INVENTORY_MISC = "Misc Options";
+INVENTORY_HEXEN = "Hexen Options";
+INVENTORY_PUZZLE_ITEMS = "Hide Puzzle Items";
+INVENTORY_PUZZLE_ITEMS_DESC = "Don't show Hexen puzzle items in the inventory bar.";
