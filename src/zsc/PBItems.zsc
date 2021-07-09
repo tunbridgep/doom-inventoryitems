@@ -4,6 +4,7 @@ class MegaBerserkPickup : HealthPowerup
     {
         Inventory.Icon "MBERINV";
         PowerupCommon.ConsoleVariable "inventory_replace_berserk";
+        PowerupCommon.DefaultReplacement "MegaBerserk";
     }
     
     States
@@ -20,6 +21,7 @@ class DemonRuneRevenantPickup : PowerupCommon
     {
         Inventory.Icon "DRUNINV";
         PowerupCommon.ConsoleVariable "inventory_replace_demonrune";
+        PowerupCommon.DefaultReplacement "DemonRuneRevenant";
     }
     
     States
@@ -39,6 +41,7 @@ class DemonRuneBaronPickup : PowerupCommon
     {
         Inventory.Icon "BRUNINV";
         PowerupCommon.ConsoleVariable "inventory_replace_demonrune";
+        PowerupCommon.DefaultReplacement "DemonRuneBaron";
     }
     
     States
@@ -58,6 +61,7 @@ class CombatBackpackPickup : PowerupCommon
     {
         Inventory.Icon "CMPKINV";
         PowerupCommon.ConsoleVariable "inventory_replace_backpack";
+        PowerupCommon.DefaultReplacement "CombatBackpack";
     }
     
     States
@@ -74,6 +78,7 @@ class DoubleSpherePickup : PowerupCommon
     {
         Inventory.Icon "DOUBINV";
         PowerupCommon.ConsoleVariable "inventory_replace_doublesphere";
+        PowerupCommon.DefaultReplacement "DoubleSphere";
     }
     
     States
@@ -94,6 +99,7 @@ class RageSpherePickup : PowerupCommon
     Default
     {
         Inventory.Icon "RAGEINV";
+        PowerupCommon.DefaultReplacement "RageSphere";
     }
     
     States
@@ -111,6 +117,7 @@ class HasteSpherePickup : PowerupCommon
     {
         Inventory.Icon "HASTEINV";
         PowerupCommon.ConsoleVariable "inventory_replace_hastesphere";
+        PowerupCommon.DefaultReplacement "HasteSphere";
     }
     
     States
@@ -131,6 +138,7 @@ class TimeSpherePickup : HealthPowerup
     Default
     {
         Inventory.Icon "TIMEINV";
+        PowerupCommon.DefaultReplacement "TimeSphere";
     }
     
     States

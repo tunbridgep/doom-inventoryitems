@@ -48,10 +48,11 @@ class AutoHealthUser : Inventory
     
     override void AttachToOwner(Actor other)
     {
-        AddHealthItem("BerserkPickup",100,200,0,0);
+        AddHealthItem("BerserkPickup",101,100,0,0);
         AddHealthItem("SoulspherePickup",100,200,0,0);
         AddHealthItem("MegaBerserkPickup",200,200,0,0);
         AddHealthItem("MegaspherePickup",200,200,200,200);
+        AddHealthItem("Healthpack",100,100,0,0); //from Simple Completion Rewards mod
         
         //Heretic/Hexen Stuff
         AddHealthItem("ArtiHealth",25,100,0,0);

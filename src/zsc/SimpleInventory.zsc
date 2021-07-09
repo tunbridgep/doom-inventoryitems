@@ -1,14 +1,14 @@
 class SimpleInventoryItems : EventHandler
 {
-    Class<Actor> soulsphere;
-    Class<Actor> blursphere;
-    Class<Actor> megasphere;
-    Class<Actor> berserk;
-    Class<Actor> radsuit;
-    Class<Actor> backpack;
-    Class<Actor> allmap;
-    Class<Actor> infrared;
-    Class<Actor> invulnsphere;
+    Class<Inventory> soulsphere;
+    Class<Inventory> blursphere;
+    Class<Inventory> megasphere;
+    Class<Inventory> berserk;
+    Class<Inventory> radsuit;
+    Class<Inventory> backpack;
+    Class<Inventory> allmap;
+    Class<Inventory> infrared;
+    Class<Inventory> invulnsphere;
     
     bool IgnoreNext;
     
@@ -30,21 +30,26 @@ class SimpleInventoryItems : EventHandler
     {   
         if (!e.replacement)
             return;
+            
+        Class<Inventory> a = (Class<Inventory>)(e.Replacement);
+        
+        if (!a)
+            return;
 
-        if (e.Replacee is soulsphere) soulsphere = e.Replacement;
-        else if (e.Replacee is blursphere) blursphere = e.Replacement;
-        else if (e.Replacee is megasphere) megasphere = e.Replacement;
-        else if (e.Replacee is invulnsphere) invulnsphere = e.Replacement;
-        else if (e.Replacee is berserk) berserk = e.Replacement;
-        else if (e.Replacee is radsuit) radsuit = e.Replacement;
-        else if (e.Replacee is backpack) backpack = e.Replacement;
-        else if (e.Replacee is allmap) allmap = e.Replacement;
-        else if (e.Replacee is infrared) infrared = e.Replacement;
+        if (e.Replacee is soulsphere) soulsphere = a;
+        else if (e.Replacee is blursphere) blursphere = a;
+        else if (e.Replacee is megasphere) megasphere = a;
+        else if (e.Replacee is invulnsphere) invulnsphere = a;
+        else if (e.Replacee is berserk) berserk = a;
+        else if (e.Replacee is radsuit) radsuit = a;
+        else if (e.Replacee is backpack) backpack = a;
+        else if (e.Replacee is allmap) allmap = a;
+        else if (e.Replacee is infrared) infrared = a;
     }
     
     //try to emulate an item as closely as possible - have it's pickup sound,
     //it's floatbob, gravity, etc.
-    protected void ReplaceCompletely(Inventory source, class<Actor> replacement_class)
+    protected void ReplaceCompletely(Inventory source, class<Inventory> replacement_class)
     { 
         if (IgnoreNext)
         {
@@ -80,18 +85,17 @@ class SimpleInventoryItems : EventHandler
         replacement.bUNDROPPABLE = source.bUNDROPPABLE;
         replacement.bNEVERRESPAWN = source.bNEVERRESPAWN;
         replacement.bNOSCREENFLASH = source.bNOSCREENFLASH;
-        //replacement.bPICKUPFLASH = source.bPICKUPFLASH; //Deprecated, but Heretic/Hexen still use it
-        replacement.ReplacementClass = source.GetClass();
         replacement.PickupSound = source.PickupSound;
         replacement.PickupFlash = source.PickupFlash;
         replacement.UseSound = source.PickupSound;
         replacement.FakePickupMessage = source.PickupMsg;
         replacement.GiveAmount = source.Amount;
         replacement.FakeRenderStyle = source.GetRenderStyle();
+        replacement.GiveClass = source.GetClassName();
         
         replacement.SetTag(source.GetTag());
         replacement.ChangeTID(source.tid);
-             
+        
         //replacement.Special = source.Special;
         //source.Special = null;
         
