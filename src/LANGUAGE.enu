@@ -25,6 +25,7 @@ INVENTORY_ICONSET = "Icon Set";
 INVENTORY_ICONSET_DESC = "Determines which icons inventory items will use";
 INVENTORY_ICONSET_DOOM = "Vanilla Doom";
 INVENTORY_ICONSET_PB = "Project Brutality";
+INVENTORY_ICONSET_D64 = "Doom 64";
 
 //Item Use Key
 INVENTORY_NO_HEAL = "No appropriate healing item to use!";

@@ -8,7 +8,8 @@ class PowerupCommon : CustomInventory
     //allow skinning
     string Icon1;
     string Icon2;
-    property SkinnedIcon: Icon1, Icon2;
+    string Icon3;
+    property SkinnedIcon: Icon1, Icon2, Icon3;
     
     meta string ccmd;
     property ConsoleVariable: ccmd;
@@ -32,7 +33,7 @@ class PowerupCommon : CustomInventory
         Inventory.MaxAmount 99;
         Inventory.Amount 1;
         PowerupCommon.DefaultGiveAmount 1;
-        PowerupCommon.SkinnedIcon "", "";
+        PowerupCommon.SkinnedIcon "", "", "";
         PowerupCommon.ConsoleVariable "";
         Inventory.PickupMessage "";
     }
@@ -66,25 +67,23 @@ class PowerupCommon : CustomInventory
 	}
 	   
     private void SetIcon()
-    {
-        if (Icon1 == "" || Icon2 == "")
-            return;
-    
+    {   
         TextureID iconID;
     
-        switch (inventory_iconset)
-        {
-            case 0:
-               iconID = TexMan.CheckForTexture(Icon1,TexMan.TYPE_ANY,TexMan.DONTCREATE);
-               break;
-            case 1:
-                iconID = TexMan.CheckForTexture(Icon2,TexMan.TYPE_ANY,TexMan.DONTCREATE);
-                break;
-        }
-        if (iconID)
-            Icon = iconID;
+        if (inventory_iconset == 2 && Icon3 != "")
+            iconID = TexMan.CheckForTexture(Icon3,TexMan.TYPE_ANY,TexMan.DONTCREATE);
+        else if (inventory_iconset == 1 && Icon2 != "")
+            iconID = TexMan.CheckForTexture(Icon2,TexMan.TYPE_ANY,TexMan.DONTCREATE);
         else
+            iconID = TexMan.CheckForTexture(Icon1,TexMan.TYPE_ANY,TexMan.DONTCREATE);
+            
+        if (!iconID) //no icon
+        {
+            iconID = TexMan.CheckForTexture("UNKNA0",TexMan.TYPE_ANY,TexMan.DONTCREATE);
             Console.Printf("Failed to find icon for item "..self.GetTag());
+        }
+    
+        Icon = iconID;
     }
 	
 	protected virtual bool GetAutoUse()

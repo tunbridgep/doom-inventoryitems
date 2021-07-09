@@ -15,6 +15,7 @@ OptionValue IconSetOptions
 {
     0, "$INVENTORY_ICONSET_DOOM"
     1, "$INVENTORY_ICONSET_PB"
+    2, "$INVENTORY_ICONSET_D64"
 }
 
 OptionMenu "SimpleInventoryBase"

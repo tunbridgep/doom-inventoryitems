@@ -2,7 +2,7 @@ class SoulspherePickup : HealthPowerup
 {
     Default
     {
-        Inventory.Icon "SOULINV";
+        PowerupCommon.SkinnedIcon "SOULINV", "", "D64SOUL";
         PowerupCommon.ConsoleVariable "inventory_replace_soulsphere";
         PowerupCommon.DefaultReplacement "Soulsphere";
         PowerupCommon.DefaultGiveAmount 100;
@@ -27,7 +27,7 @@ class MegaspherePickup : HealthPowerup
 {
     Default
     {
-        Inventory.Icon "MEGAINV";
+        PowerupCommon.SkinnedIcon "MEGAINV", "", "D64MEGA";
         PowerupCommon.ConsoleVariable "inventory_replace_megasphere";
         PowerupCommon.DefaultReplacement "Megasphere";
     }
@@ -51,7 +51,7 @@ class BlurspherePickup : PowerupCommon
 {
     Default
     {
-        Inventory.Icon "BLURINV";
+        PowerupCommon.SkinnedIcon "BLURINV", "", "D64BLUR";
         PowerupCommon.ConsoleVariable "inventory_replace_blursphere";
         PowerupCommon.DefaultReplacement "Blursphere";
     }
@@ -68,7 +68,7 @@ class InvulnerabilitySpherePickup : HealthPowerup
 {
     Default
     {
-        Inventory.Icon "INVUINV";
+        PowerupCommon.SkinnedIcon "INVUINV", "", "D64INVU";
         PowerupCommon.ConsoleVariable "inventory_replace_invulnsphere";
         PowerupCommon.DefaultReplacement "InvulnerabilitySphere";
     }
@@ -89,7 +89,7 @@ class BerserkPickup : HealthPowerup
 {
     Default
     {
-        Inventory.Icon "BERSINV";
+        PowerupCommon.SkinnedIcon "BERSINV", "", "D64BERS";
         PowerupCommon.ConsoleVariable "inventory_replace_berserk";
         PowerupCommon.DefaultReplacement "Berserk";
     }
@@ -106,7 +106,7 @@ class RadSuitPickup : RadsuitReplacer
 {
     Default
     {
-        PowerupCommon.SkinnedIcon "SUITINV", "PBSUTINV";
+        PowerupCommon.SkinnedIcon "SUITINV", "PBSUTINV", "D64SUIT";
         PowerupCommon.ConsoleVariable "inventory_replace_radsuit";
         PowerupCommon.DefaultReplacement "Radsuit";
     }
@@ -123,7 +123,7 @@ class AllmapPickup : PowerupCommon
 {
     Default
     {
-        Inventory.Icon "MAPINV";
+        PowerupCommon.SkinnedIcon "MAPINV", "", "D64MAP";
         PowerupCommon.ConsoleVariable "inventory_replace_allmap";
         PowerupCommon.DefaultReplacement "Allmap";
     }
@@ -140,7 +140,7 @@ class InfraredPickup : PowerupCommon
 {
     Default
     {
-        PowerupCommon.SkinnedIcon "GOGGINV", "PBGOGINV";
+        PowerupCommon.SkinnedIcon "GOGGINV", "PBGOGINV", "D64GOG";
         PowerupCommon.ConsoleVariable "inventory_replace_infrared";
         PowerupCommon.DefaultReplacement "Infrared";
     }
@@ -162,7 +162,7 @@ class BackpackPickup : PowerupCommon
 {
     Default
     {
-        PowerupCommon.SkinnedIcon "BKPKINV", "PBBPKINV";
+        PowerupCommon.SkinnedIcon "BKPKINV", "PBBPKINV", "D64BPK";
         PowerupCommon.ConsoleVariable "inventory_replace_backpack";
         PowerupCommon.DefaultReplacement "Backpack";
     }
