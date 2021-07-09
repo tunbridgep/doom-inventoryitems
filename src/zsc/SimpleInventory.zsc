@@ -94,10 +94,16 @@ class SimpleInventoryItems : EventHandler
         replacement.GiveClass = source.GetClassName();
         
         replacement.SetTag(source.GetTag());
+        
+        //Set TID
         replacement.ChangeTID(source.tid);
         
-        //replacement.Special = source.Special;
-        //source.Special = null;
+        //Set up action specials
+        if (source.Special != 0)
+        {
+            replacement.A_SetSpecial(source.Special,source.args[0],source.args[1],source.args[2],source.args[3],source.args[4]);
+            source.A_SetSpecial(0,0,0,0,0,0);
+        }
         
         //make sure our new item counts and our old one doesn't
         replacement.bCOUNTITEM = source.bCOUNTITEM;
